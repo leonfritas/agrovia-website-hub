@@ -32,7 +32,7 @@ export default function Home() {
       <ParceriasInstitucionais />
       <GuiaAgrovia />
       <PreFooterCTA />
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
