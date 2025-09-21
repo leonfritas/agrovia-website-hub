@@ -9,10 +9,10 @@ interface AgroviaEnsinaCardProps {
 
 const AgroviaEnsinaCard = ({ agroviaensina }: AgroviaEnsinaCardProps) => {
   return (
-    <div className="rounded-2xl bg-[#7B5B33] p-6 text-white flex flex-col justify-between shadow-md transition hover:shadow-lg">
+    <div className="rounded-3xl bg-[#7B5B33] p-6 text-white flex flex-col justify-between shadow-md transition hover:shadow-lg">
       {/* Ícone + Título */}
       <div className="mb-4 flex items-center gap-3">
-        <Image src={agroviaensina.icon} alt={agroviaensina.title} width={40} height={40} />
+        <Image src={agroviaensina.icon} alt={agroviaensina.title} width={60} height={60} />
         <h3 className="text-lg font-semibold">{agroviaensina.id}{agroviaensina.title}</h3>
       </div>
 
@@ -22,7 +22,9 @@ const AgroviaEnsinaCard = ({ agroviaensina }: AgroviaEnsinaCardProps) => {
       {/* Link com seta */}
       <div className="mt-auto flex justify-end">
         <Link href={agroviaensina.link}>
-          <ArrowRight className="w-6 h-6 text-white" />
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white">
+            <ArrowRight className="w-6 h-6 text-[#7B5B33]" />
+          </div>
         </Link>
       </div>
     </div>

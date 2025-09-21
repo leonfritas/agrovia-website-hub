@@ -28,7 +28,7 @@ const PricingBox = ({ product }: { product: Price }) => {
         data-wow-delay=".1s"
       >
         {product.nickname === "Premium" && (
-          <p className="absolute right-[-50px] top-[60px] inline-block -rotate-90 rounded-bl-md rounded-tl-md bg-primary px-5 py-2 text-base font-medium text-white">
+          <p className="absolute right-[-50px] top-[60px] inline-block -rotate-90 rounded-bl-md rounded-tl-md bg-emerald-900 px-5 py-2 text-base font-medium text-white">
             Recommended
           </p>
         )}
@@ -61,7 +61,7 @@ const PricingBox = ({ product }: { product: Price }) => {
         <div className="w-full">
           <button
             onClick={handleSubscription}
-            className="inline-block rounded-md bg-primary px-7 py-3 text-center text-base font-medium text-white transition duration-300 hover:bg-primary/90"
+            className="inline-block rounded-md bg-emerald-900 px-7 py-3 text-center text-base font-medium text-white transition duration-300 hover:bg-emerald-900/90"
           >
             Purchase Now
           </button>

@@ -17,20 +17,20 @@ body {
 }
 
 .sticky-menu #navbarCollapse li > a {
-  @apply text-dark hover:text-primary hover:opacity-100 dark:text-white;
+  @apply text-dark hover:text-emerald-900 hover:opacity-100 dark:text-white;
 }
 #navbarCollapse li .ud-menu-scroll.active {
   @apply opacity-70;
 }
 .sticky-menu #navbarCollapse li .ud-menu-scroll.active {
-  @apply text-primary opacity-100 dark:text-white;
+  @apply text-emerald-900 opacity-100 dark:text-white;
 }
 .sticky-menu .loginBtn {
-  @apply text-dark hover:text-primary hover:opacity-100 dark:text-white;
+  @apply text-dark hover:text-emerald-900 hover:opacity-100 dark:text-white;
 }
 
 .sticky-menu .signUpBtn {
-  @apply bg-primary hover:bg-dark text-white hover:text-white;
+  @apply bg-emerald-900 hover:bg-dark text-white hover:text-white;
 }
 
 .navbarTogglerActive > span:nth-child(1) {

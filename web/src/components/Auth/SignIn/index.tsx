@@ -92,7 +92,7 @@ const Signin = () => {
                       onChange={(e) =>
                         setLoginData({ ...loginData, email: e.target.value })
                       }
-                      className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-primary"
+                      className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-emerald-900 focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-emerald-900"
                     />
                   </div>
                   <div className="mb-[22px]">
@@ -102,14 +102,14 @@ const Signin = () => {
                       onChange={(e) =>
                         setLoginData({ ...loginData, password: e.target.value })
                       }
-                      className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-primary"
+                      className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-dark outline-none transition placeholder:text-dark-6 focus:border-emerald-900 focus-visible:shadow-none dark:border-dark-3 dark:text-white dark:focus:border-emerald-900"
                     />
                   </div>
                   <div className="mb-9">
                     <button
                       onClick={loginUser}
                       type="submit"
-                      className="flex w-full cursor-pointer items-center justify-center rounded-md border border-primary bg-primary px-5 py-3 text-base text-white transition duration-300 ease-in-out hover:bg-primary/90"
+                      className="flex w-full cursor-pointer items-center justify-center rounded-md border border-emerald-900 bg-emerald-900 px-5 py-3 text-base text-white transition duration-300 ease-in-out hover:bg-emerald-900/90"
                     >
                       Sign In {loading && <Loader />}
                     </button>
@@ -121,13 +121,13 @@ const Signin = () => {
 
               <Link
                 href="/forgot-password"
-                className="mb-2 inline-block text-base text-dark hover:text-primary dark:text-white dark:hover:text-primary"
+                className="mb-2 inline-block text-base text-dark hover:text-emerald-900 dark:text-white dark:hover:text-emerald-900"
               >
                 Forget Password?
               </Link>
               <p className="text-body-secondary text-base">
                 Not a member yet?{" "}
-                <Link href="/signup" className="text-primary hover:underline">
+                <Link href="/signup" className="text-emerald-900 hover:underline">
                   Sign Up
                 </Link>
               </p>

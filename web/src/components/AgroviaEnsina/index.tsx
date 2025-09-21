@@ -14,7 +14,7 @@ const AgroviaEnsina = () => {
         </span>
 
         {/* Título */}
-        <h2 className="mb-10 max-w-3xl text-2xl font-bold leading-snug text-dark sm:text-3xl lg:text-4xl">
+        <h2 className="m-16 max-w-3xl text-2xl font-bold leading-snug text-dark sm:text-3xl lg:text-4xl">
           Técnicas que aumentam sua produtividade com o pé no chão. <br />
           <span className="block">
             Conteúdos técnicos e aplicáveis com linguagem descomplicada.

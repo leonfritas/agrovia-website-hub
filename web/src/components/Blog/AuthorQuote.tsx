@@ -3,11 +3,11 @@ import React from "react";
 const AuthorQuote = () => {
   return (
     <div
-      className="wow fadeInUp relative z-10 mb-10 overflow-hidden rounded bg-primary bg-opacity-5 px-6 py-8 text-center sm:p-10 md:px-[60px]"
+      className="wow fadeInUp relative z-10 mb-10 overflow-hidden rounded bg-emerald-900 bg-opacity-5 px-6 py-8 text-center sm:p-10 md:px-[60px]"
       data-wow-delay=".1s"
     >
       <div className="mx-auto max-w-[530px]">
-        <span className="mb-6 flex justify-center text-primary">
+        <span className="mb-6 flex justify-center text-emerald-900">
           <svg
             width="44"
             height="26"

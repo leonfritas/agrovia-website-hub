@@ -1,6 +1,6 @@
 import About from "@/components/About";
 import HomeBlogSection from "@/components/Blog/HomeBlogSection";
-import CallToAction from "@/components/CallToAction";
+import AgroviaInspira from "@/components/AgroviaInspira";
 import Clients from "@/components/Clients";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Contact from "@/components/Contact";
@@ -29,8 +29,8 @@ export default function Home() {
       <About />
       <AgroviaEnsina />
       <AgroviaLegal />      
-      {/* <CallToAction />
-      <Pricing />
+       <AgroviaInspira />
+      {/*<Pricing />
       <Testimonials />
       <Faq />
       <Team />

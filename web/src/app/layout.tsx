@@ -4,6 +4,9 @@ import ScrollToTop from "@/components/ScrollToTop";
 import "../styles/index.css";
 import "../styles/prism-vsc-dark-plus.css";
 import Providers from "./providers";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function RootLayout({
   children,

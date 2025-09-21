@@ -20,13 +20,13 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
         </Link>
       </div>
       <div>
-        <span className="mb-5 inline-block rounded bg-primary px-4 py-1 text-center text-xs font-semibold leading-loose text-white">
+        <span className="mb-5 inline-block rounded bg-emerald-900 px-4 py-1 text-center text-xs font-semibold leading-loose text-white">
           {format(new Date(date), "dd MMM yyyy")}
         </span>
         <h3>
           <Link
             href={`/blogs/${slug}`}
-            className="mb-4 inline-block text-xl font-semibold text-dark hover:text-primary dark:text-white dark:hover:text-primary sm:text-2xl lg:text-xl xl:text-2xl"
+            className="mb-4 inline-block text-xl font-semibold text-dark hover:text-emerald-900 dark:text-white dark:hover:text-emerald-900 sm:text-2xl lg:text-xl xl:text-2xl"
           >
             {title}
           </Link>

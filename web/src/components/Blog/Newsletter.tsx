@@ -1,7 +1,7 @@
 const Newsletter = () => {
   return (
     <div
-      className="wow fadeInUp relative mb-12 overflow-hidden rounded-[5px] bg-primary px-11 py-[60px] text-center lg:px-8"
+      className="wow fadeInUp relative mb-12 overflow-hidden rounded-[5px] bg-emerald-900 px-11 py-[60px] text-center lg:px-8"
       data-wow-delay=".1s"
     >
       <h3 className="mb-[6px] text-[28px] font-semibold leading-[40px] text-white">

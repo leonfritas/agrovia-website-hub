@@ -103,7 +103,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Home
                   </Link>
@@ -111,7 +111,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Agrovia Ensina
                   </Link>
@@ -119,7 +119,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     About
                   </Link>
@@ -127,7 +127,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Testimonial
                   </Link>
@@ -144,7 +144,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     How it works
                   </Link>
@@ -152,7 +152,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Privacy policy
                   </Link>
@@ -160,7 +160,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Terms of Service
                   </Link>
@@ -168,7 +168,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Refund policy
                   </Link>
@@ -185,7 +185,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     LineIcons
                   </Link>
@@ -193,7 +193,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Next.js Templates
                   </Link>
@@ -201,7 +201,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     TailAdmin
                   </Link>
@@ -209,7 +209,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     PlainAdmin
                   </Link>
@@ -226,7 +226,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     FAQ
                   </Link>
@@ -234,7 +234,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Blogs
                   </Link>
@@ -242,7 +242,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     Support
                   </Link>
@@ -250,7 +250,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="#"
-                    className="mb-3 inline-block text-base text-gray-7 hover:text-primary"
+                    className="mb-3 inline-block text-base text-gray-7 hover:text-emerald-900"
                   >
                     About
                   </Link>

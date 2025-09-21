@@ -185,7 +185,7 @@ export default async function Post({ params }: Props) {
                         >
                           Popular Articles
                         </h2>
-                        <span className="mb-10 inline-block h-[2px] w-20 bg-primary"></span>
+                        <span className="mb-10 inline-block h-[2px] w-20 bg-emerald-900"></span>
                       </div>
                       {posts.slice(0, 3).map((blog, i) => (
                         <PopularArticle
@@ -223,7 +223,7 @@ export default async function Post({ params }: Props) {
               <h2 className="relative pb-5 text-2xl font-semibold text-dark dark:text-white sm:text-[28px]">
                 Related Articles
               </h2>
-              <span className="mb-10 inline-block h-[2px] w-20 bg-primary"></span>
+              <span className="mb-10 inline-block h-[2px] w-20 bg-emerald-900"></span>
             </div>
 
             {posts.slice(0, 3).map((blog, key) => (

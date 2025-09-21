@@ -64,7 +64,7 @@ const Header = () => {
                   onClick={navbarToggleHandler}
                   id="navbarToggler"
                   aria-label="Mobile Menu"
-                  className="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
+                  className="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-emerald-900 focus:ring-2 lg:hidden"
                 >
                   <span
                     className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
@@ -108,8 +108,8 @@ const Header = () => {
                               onClick={navbarToggleHandler}
                               scroll={false}
                               href={menuItem.path}
-                              className={`ud-menu-scroll flex py-2 text-base text-dark group-hover:text-primary lg:inline-flex lg:px-0 lg:py-6 ${
-                                pathUrl === menuItem?.path && "text-primary"
+                              className={`ud-menu-scroll flex py-2 text-base text-dark group-hover:text-emerald-900 lg:inline-flex lg:px-0 lg:py-6 ${
+                                pathUrl === menuItem?.path && "text-emerald-900"
                               }`}
                             >
                               {menuItem.title}
@@ -122,9 +122,9 @@ const Header = () => {
                               href={menuItem.path}
                               className={`ud-menu-scroll flex py-2 text-base lg:inline-flex lg:px-0 lg:py-6 text-dark ${
                                 sticky
-                                  ? "lg:text-dark group-hover:text-primary"
+                                  ? "lg:text-dark group-hover:text-emerald-900"
                                   : "lg:text-white"
-                              } ${pathUrl === menuItem?.path && sticky && "!text-primary"}`}
+                              } ${pathUrl === menuItem?.path && sticky && "!text-emerald-900"}`}
                             >
                               {menuItem.title}
                             </Link>
@@ -137,7 +137,7 @@ const Header = () => {
                             onClick={() => handleSubmenu(index)}
                             className={`ud-menu-scroll flex items-center justify-between py-2 text-base text-dark lg:inline-flex lg:px-0 lg:py-6 ${
                               sticky
-                                ? "lg:text-dark group-hover:text-primary"
+                                ? "lg:text-dark group-hover:text-emerald-900"
                                 : "lg:text-white"
                             }`}
                           >
@@ -179,8 +179,8 @@ const Header = () => {
       }}
       className={`block rounded px-4 py-[10px] text-sm ${
         pathUrl === submenuItem.path
-          ? "text-primary"
-          : "text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary"
+          ? "text-emerald-900"
+          : "text-body-color hover:text-emerald-900 dark:text-dark-6 dark:hover:text-emerald-900"
       }`}
     >
       {submenuItem.title}
@@ -200,7 +200,7 @@ const Header = () => {
               <Link
                 href=""
                 className={`rounded-full px-6 py-3 text-base font-medium text-white duration-300 ease-in-out ${
-                  sticky ? "bg-primary hover:bg-primary/90" : "bg-white/10 hover:bg-white/20"
+                  sticky ? "bg-emerald-900 hover:bg-emerald-900/90" : "bg-white/10 hover:bg-white/20"
                 }`}
               >
                 Contacte-nos
