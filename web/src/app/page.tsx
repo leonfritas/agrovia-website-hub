@@ -1,16 +1,14 @@
 import About from "@/components/About";
-import HomeBlogSection from "@/components/Blog/HomeBlogSection";
+import PreFooterCTA from "@/components/PreFooterCTA";
 import AgroviaInspira from "@/components/AgroviaInspira";
-import Clients from "@/components/Clients";
 import ScrollUp from "@/components/Common/ScrollUp";
-import Contact from "@/components/Contact";
-import Faq from "@/components/Faq";
+import Footer from "@/components/Footer";
+import ParceriasInstitucionais from "@/components/ParceriasInstitucionais";
 import AgroviaEnsina from "@/components/AgroviaEnsina";
 import Hero from "@/components/Hero";
-import Pricing from "@/components/Pricing";
-import Team from "@/components/Team";
-import Testimonials from "@/components/Testimonials";
-import { getAllPosts } from "@/utils/markdown";
+import AgroviaAtual from "@/components/AgroviaAtual";
+import GuiaAgrovia from "@/components/GuiaAgrovia";
+import AgroviaConversa from "@/components/AgroviaConversa";
 import { Metadata } from "next";
 import AgroviaLegal from "@/components/AgroviaLegal";
 
@@ -20,7 +18,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const posts = getAllPosts(["title", "date", "excerpt", "coverImage", "slug"]);
 
   return (
     <main>
@@ -29,14 +26,13 @@ export default function Home() {
       <About />
       <AgroviaEnsina />
       <AgroviaLegal />      
-       <AgroviaInspira />
-      {/*<Pricing />
-      <Testimonials />
-      <Faq />
-      <Team />
-      <HomeBlogSection posts={posts} />
-      <Contact />
-      <Clients /> */}
+      <AgroviaInspira />
+      <AgroviaAtual />
+      <AgroviaConversa />
+      <ParceriasInstitucionais />
+      <GuiaAgrovia />
+      <PreFooterCTA />
+      <Footer />
     </main>
   );
 }

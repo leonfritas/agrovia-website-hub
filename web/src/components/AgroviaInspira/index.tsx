@@ -44,7 +44,7 @@ export default function AgroviaInspira() {
   };
 
   return (
-    <section className="relative z-10 bg-emerald-900 py-16 lg:py-24">
+    <section id="agrovia-inspira" className="relative z-10 bg-emerald-900 py-16 lg:py-24">
       <div className="container mx-auto">
         {/* Título */}
         <div className="mb-8">
@@ -62,8 +62,8 @@ export default function AgroviaInspira() {
           }}
           pagination={{ clickable: true }}
           spaceBetween={50}
-          slidesPerView={1}
-          className="relative"
+          slidesPerView={1}          
+          className="relative agrovia-swiper" 
         >
           {depoimentos.map((item) => (
             <SwiperSlide key={item.id}>
@@ -73,12 +73,12 @@ export default function AgroviaInspira() {
                   <Image
                     src={item.imagem}
                     alt={item.titulo}
-                    width={820}
+                    width={720}
                     height={650}
                     className="rounded-2xl object-cover"
                   />
                   {/* Miniatura com botão play */}
-                  <div className="absolute -bottom-8 -right-8 aspect-square w-40 rounded-xl shadow-lg">
+                  <div className="absolute bottom-8 right-10 aspect-square w-80 rounded-xl shadow-lg">
                     <Image
                       src={item.imagem}
                       alt={`${item.titulo} vídeo`}

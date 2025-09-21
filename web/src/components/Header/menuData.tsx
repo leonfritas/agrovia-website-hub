@@ -21,9 +21,39 @@ const menuData: Menu[] = [
       {
         id: 62,
         title: "Agrovia Ensina",
-        path: "/",
+        path: "#agrovia-ensina",
         newTab: false,
-      }            
+      },
+      {
+        id: 62,
+        title: "Agrovia Legal",
+        path: "#agrovia-legal",
+        newTab: false,
+      },
+      {
+        id: 62,
+        title: "Agrovia Inspira",
+        path: "#agrovia-inspira",
+        newTab: false,
+      },
+      {
+        id: 62,
+        title: "Agrovia Atual",
+        path: "#agrovia-atual",
+        newTab: false,
+      },
+      {
+        id: 62,
+        title: "Agrovia Conversa",
+        path: "#agrovia-conversa",
+        newTab: false,
+      },
+      {
+        id: 62,
+        title: "Guia Agrovia",
+        path: "#guia-agrovia",
+        newTab: false,
+      }
     ],
   },
   {

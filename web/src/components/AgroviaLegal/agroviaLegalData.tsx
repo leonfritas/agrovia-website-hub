@@ -3,7 +3,7 @@ import { AgroviaEnsina } from "@/types/agrovia-ensina";
 const AgroviaLegalData:AgroviaEnsina[] = [
   {
     id: 1,
-    title: "Rotação de culturas em pequenas áreas:",
+    title: "Contratoverbalvale?:",
     subtitle: "Eng. Agrônoma Carla Mendes ensina 3 formas de conservar o solo.",
     icon: "/images/icon.png",
     link: "#",

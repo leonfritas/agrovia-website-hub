@@ -75,3 +75,27 @@ body {
 .blog-details h3 {
   @apply text-dark mb-6 text-2xl font-bold dark:text-white sm:text-[28px] sm:leading-[40px];
 }
+
+.agrovia-swiper .swiper-pagination {
+  left: 1.5rem !important;
+  bottom: 1.5rem !important;
+  width: auto !important;      /* não ocupa a largura toda */
+  text-align: left !important;
+  bottom: -5px !important;  /* ajusta a posição vertical */
+}
+
+/* Bullets brancos */
+.agrovia-pagination .swiper-pagination-bullet {
+  background: #ffffff !important;
+  opacity: 0.45;
+}
+.agrovia-pagination .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* Mantém alinhado à esquerda e sem ocupar a largura toda */
+.agrovia-pagination {
+  width: auto !important;
+  text-align: left !important;
+}
+

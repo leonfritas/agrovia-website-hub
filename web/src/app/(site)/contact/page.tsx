@@ -1,5 +1,5 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import Contact from "@/components/Contact";
+import Contact from "@/components/PreFooterCTA";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

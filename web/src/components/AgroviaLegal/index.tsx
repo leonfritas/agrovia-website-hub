@@ -6,18 +6,21 @@ const AgroviaLegal = () => {
   
 
   return (
-    <section className="pb-12 pt-20 lg:pb-[70px] lg:pt-[120px]">
+    <section id="agrovia-legal" className="pb-12 pt-20 lg:pb-[70px] lg:pt-[120px]">
       <div className="container">
         {/* Badge */}
-        <span className="inline-block rounded-md bg-[#7B5B33] px-4 py-1 text-sm font-medium text-white mb-4">
+        <span className="inline-block rounded-md bg-[#7B5B33] px-4 py-1 text-sm font-medium text-white mb-24">
           Agrovia Legal
         </span>
 
         {/* Título */}
-        <h2 className="mb-10 max-w-3xl text-2xl font-bold leading-snug text-dark sm:text-3xl lg:text-4xl">
-          Técnicas que aumentam sua produtividade com o pé no chão. <br />
+        <h2 className="mb-24 max-w-3xl text-2xl font-bold leading-snug text-dark sm:text-3xl lg:text-4xl">
+          
+          Seu direito no campo, explicado de forma clara.
+
+          <br />
           <span className="block">
-            Conteúdos técnicos e aplicáveis com linguagem descomplicada.
+            Dúvidasjurídicas traduzidas por quem entende do agro
           </span>
         </h2>
 

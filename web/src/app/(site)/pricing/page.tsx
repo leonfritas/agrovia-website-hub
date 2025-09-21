@@ -1,6 +1,6 @@
 import Breadcrumb from "@/components/Common/Breadcrumb";
-import Faq from "@/components/Faq";
-import Pricing from "@/components/Pricing";
+import Faq from "@/components/ParceriasInstitucionais";
+import Pricing from "@/components/AgroviaAtual";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
