@@ -5,8 +5,9 @@ import { Mail, MapPin, Phone, Instagram, Linkedin, Youtube } from "lucide-react"
 export default function Footer() {
   return (
     <footer className="bg-emerald-900 text-white">
-      <div className="container mx-auto px-4 pt-10 pb-6">
-        <div className="grid gap-10 md:grid-cols-3">
+      {/* Conteúdo centralizado e com pouco padding lateral */}
+      <div className="mx-auto w-full max-w-none px-2 sm:px-[150px] pt-10 pb-6">
+        <div className="flex flex-col gap-10 md:flex-row md:justify-around items-center flex-wrap">
           {/* Coluna 1: Marca */}
           <div>
             <div className="w-44">
@@ -38,39 +39,46 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Coluna 2: Links */}
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-white/80">
-              Links de acesso
-            </h4>
-            <ul className="mt-4 space-y-2 text-sm text-white/90">
-              <li><Link href="/" className="hover:underline">Home</Link></li>
-              <li><Link href="/sobre" className="hover:underline">Sobre nós</Link></li>
-              <li><Link href="/servicos" className="hover:underline">Serviços</Link></li>
-              <li><Link href="/projetos" className="hover:underline">Projetos</Link></li>
-            </ul>
-          </div>
+          
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+  {/* Links */}
+  <div className="mx-auto w-full max-w-xs text-center md:mx-0 md:max-w-none md:text-left">
+    <h4 className="text-sm font-semibold uppercase tracking-wide text-white/80">
+      Links de acesso
+    </h4>
+    <ul className="mt-4 space-y-2 text-sm text-white/90">
+      <li><Link href="/" className="hover:underline">Home</Link></li>
+      <li><Link href="/sobre" className="hover:underline">Sobre nós</Link></li>
+      <li><Link href="/servicos" className="hover:underline">Serviços</Link></li>
+      <li><Link href="/projetos" className="hover:underline">Projetos</Link></li>
+    </ul>
+  </div>
 
-          {/* Coluna 3: Contatos */}
-          <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-white/80">
-              Contactos
-            </h4>
-            <ul className="mt-4 space-y-3 text-sm text-white/90">
-              <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4" />
-                <span>Rua Exemplo, 123 — Cidade/UF</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Phone className="mt-0.5 h-4 w-4" />
-                <span>(00) 0000-0000</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Mail className="mt-0.5 h-4 w-4" />
-                <span>contato@agrovia.com</span>
-              </li>
-            </ul>
-          </div>
+  {/* Contactos */}
+  <div className="mx-auto w-full max-w-xs text-center md:mx-0 md:max-w-none md:text-left">
+    <h4 className="text-sm font-semibold uppercase tracking-wide text-white/80">
+      Contatos
+    </h4>
+
+    {/* No mobile: grade (ícone | texto). No desktop: volta a ser flex */}
+    <ul className="mt-4 space-y-3 text-sm text-white/90">
+      <li className="grid grid-cols-[1.25rem,1fr] items-start gap-3 md:flex md:items-start md:gap-2">
+        <MapPin className="mx-auto md:mx-0 mt-0.5 h-4 w-4" />
+        <span>Rua Exemplo, 123 — Cidade/UF</span>
+      </li>
+      <li className="grid grid-cols-[1.25rem,1fr] items-start gap-3 md:flex md:items-start md:gap-2">
+        <Phone className="mx-auto md:mx-0 mt-0.5 h-4 w-4" />
+        <span>(00) 0000-0000</span>
+      </li>
+      <li className="grid grid-cols-[1.25rem,1fr] items-start gap-3 md:flex md:items-start md:gap-2">
+        <Mail className="mx-auto md:mx-0 mt-0.5 h-4 w-4" />
+        <span>contato@agrovia.com</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+          
         </div>
 
         {/* Barra inferior */}
