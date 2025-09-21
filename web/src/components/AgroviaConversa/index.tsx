@@ -57,6 +57,7 @@ export default function AgroviaConversa() {
   const bandRef = useRef<HTMLDivElement | null>(null);
   const [bgTop, setBgTop] = useState(0);
 
+  
   // mede e atualiza em resize
   useEffect(() => {
     const measure = () => {
@@ -205,7 +206,7 @@ export default function AgroviaConversa() {
         >
           <button
             onClick={() => setOpen(false)}
-            className="absolute right-6 top-6 text-white hover:text-gray-300"
+            className="absolute right-6 top-32 text-white hover:text-gray-300"
             aria-label="Fechar"
           >
             <X className="h-8 w-8" />

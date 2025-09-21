@@ -31,7 +31,7 @@ export default function Home() {
       <AgroviaConversa />
       <ParceriasInstitucionais />
       <GuiaAgrovia />
-      <PreFooterCTA />
+      {/* <PreFooterCTA /> */}
       {/* <Footer /> */}
     </main>
   );
