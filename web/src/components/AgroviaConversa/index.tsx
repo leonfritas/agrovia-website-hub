@@ -125,7 +125,7 @@ export default function AgroviaConversa() {
         </h2>
 
         {/* WRAPPER DO SLIDER (usa ref para ancorar o BG) */}
-        <div ref={bandRef} className="relative mt-10 rounded-2xl overflow-visible">
+        <div ref={bandRef} className="relative mt-10 rounded-2xl overflow-hidden">
           <Swiper
             modules={[Navigation, Pagination]}
             slidesPerView={1}
@@ -133,7 +133,7 @@ export default function AgroviaConversa() {
             navigation={{ prevEl: ".conversa-prev", nextEl: ".conversa-next" }}
             pagination={{ clickable: true }}
             onSlideChange={(s) => setActive(s.activeIndex)}
-            className="conversa-swiper relative min-h-[520px] rounded-2xl overflow-visible"
+            className="conversa-swiper relative min-h-[520px] rounded-2xl overflow-hidden"
           >
             {conversas.map((c) => (
               <SwiperSlide key={c.id}>
