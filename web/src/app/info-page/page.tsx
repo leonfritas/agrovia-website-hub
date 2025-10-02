@@ -23,7 +23,7 @@ export default function InfoPage() {
         {/* Logo + Título */}
         <div className="relative flex flex-col items-center text-center">
           <Image
-            src="/images/logo/logov.png"
+            src="/images/logo/logov-white.png"
             alt="Agrovia Logo"
             width={120}
             height={120}

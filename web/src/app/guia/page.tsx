@@ -23,7 +23,7 @@ export default function GuiaPage() {
         {/* Logo + Título */}
         <div className="relative flex flex-col items-center text-center">
           <Image
-            src="/images/logo/logov.png" // sua logo
+            src="/images/logo/logov-white.png" // sua logo
             alt="Agrovia Logo"
             width={120}
             height={120}
