@@ -163,7 +163,7 @@ const Header = () => {
                           <div
   className={`
     ${openIndex === index ? "block" : "hidden"}  /* mobile: abre/fecha por clique */
-    mt-2 w-full rounded-sm bg-white p-4 dark:bg-dark-2
+    w-full rounded-sm bg-white dark:bg-dark-2
     lg:block lg:absolute lg:left-0 lg:top-[110%] lg:mt-0 lg:w-[250px]
     lg:opacity-0 lg:invisible lg:shadow-lg
     lg:group-hover:visible lg:group-hover:opacity-100 lg:group-hover:top-full
