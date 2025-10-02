@@ -138,7 +138,7 @@ export default function AgroviaInspira() {
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-6 right-6 text-white hover:text-gray-400 z-[60]"
+            className="absolute top-36 right-6 text-white hover:text-gray-400 z-[60]"
           >
             <X className="w-8 h-8" />
           </button>
