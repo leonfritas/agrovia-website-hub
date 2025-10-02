@@ -6,7 +6,7 @@ const AgroviaEnsinaData:AgroviaEnsina[] = [
     title: "Rotação de culturas em pequenas áreas:",
     subtitle: "Eng. Agrônoma Carla Mendes ensina 3 formas de conservar o solo.",
     icon: "/images/icon.png",
-    link: "#",
+    link: "/info-page",
   },
   {
     id: 2,
@@ -14,7 +14,7 @@ const AgroviaEnsinaData:AgroviaEnsina[] = [
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
     icon: "/images/icon.png",
-    link: "#",
+    link: "/info-page",
   },
   {
     id: 3,
@@ -22,7 +22,7 @@ const AgroviaEnsinaData:AgroviaEnsina[] = [
     subtitle:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut.",
     icon: "/images/icon.png",
-    link: "#",
+    link: "/info-page",
   },
 ];
 

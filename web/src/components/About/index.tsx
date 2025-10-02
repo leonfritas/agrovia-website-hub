@@ -58,7 +58,7 @@ const About = () => {
             </div>
 
             <Link
-              href="#"
+              href="/sobre"
               className="inline-flex items-center justify-center rounded-md bg-dark px-6 py-3 text-base font-medium text-white duration-300 hover:bg-green-900"
             >
               Veja mais

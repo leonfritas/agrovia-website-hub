@@ -5,7 +5,7 @@ import Image from "next/image";
 type Logo = { src: string; alt: string; width: number; height: number };
 
 const LOGOS: Logo[] = [
-  { src: "/images/logo/logoh.png",    alt: "Agrovia — O ponto de encontro do agro", width: 220, height: 72 },
+  { src: "/images/logo/logo-white.png",    alt: "Agrovia — O ponto de encontro do agro", width: 220, height: 72 },
   { src: "/logos/piracema.png",   alt: "Piracema — Consultoria Ambiental e Serviços",       width: 220, height: 72 },
   { src: "/logos/manaus.png",     alt: "Prefeitura de Manaus — O trabalho não para",        width: 240, height: 72 },
   { src: "/logos/amazonas.png",   alt: "Governo do Estado do Amazonas",                     width: 240, height: 72 },
