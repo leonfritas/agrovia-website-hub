@@ -19,7 +19,7 @@ export default function RootLayout({
 
   const pathName = usePathname();
 
-  const hideHeader = ["/sobre", "/info-page"];
+  const hideHeader = ["/sobre", "/info-page", "/guia"];
 
   return (
     <html suppressHydrationWarning className="!scroll-smooth" lang="en">

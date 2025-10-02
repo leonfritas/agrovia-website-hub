@@ -17,7 +17,7 @@ const Hero = () => {
 
           <div className="mt-6 flex justify-start">
             <Link
-              href="/"
+              href="https://wa.me/5592991554925?text=Ol%C3%A1!%20Gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os."
               className="rounded-md bg-white px-8 py-3 text-lg font-semibold text-green-900 shadow-lg hover:bg-green-100 transition my-5"
             >
               Contacte - nos

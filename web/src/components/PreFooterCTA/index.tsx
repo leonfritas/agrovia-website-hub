@@ -39,7 +39,7 @@ export default function PreFooterCTA() {
             </p>
             <div className="pt-2">
               <Link
-                href="/contato"
+                href="https://wa.me/5592991554925?text=Ol%C3%A1!%20Gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os."
                 className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2 text-emerald-900 font-medium shadow-sm hover:opacity-90"
               >
                 Contacte-nos
