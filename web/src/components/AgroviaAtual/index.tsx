@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { usePosts } from "@/hooks/usePosts";
 
 type Comment = {
@@ -27,15 +27,20 @@ export default function AgroviaAtualComComentarios() {
 
   // quantidade de posts visíveis
   const [visibleCount, setVisibleCount] = useState(3);
+  const loadedCountsRef = useRef<Set<number>>(new Set());
 
   // Carregar contagem de comentários quando os posts carregarem
   useEffect(() => {
     if (posts.length > 0) {
       posts.forEach(post => {
-        loadCommentsCount(post.idPost);
+        // Só carregar se ainda não carregou
+        if (!loadedCountsRef.current.has(post.idPost)) {
+          loadedCountsRef.current.add(post.idPost);
+          loadCommentsCount(post.idPost);
+        }
       });
     }
-  }, [posts]);
+  }, [posts.length]); // Usar posts.length ao invés de posts para evitar loop
 
   // Fechar modal com ESC
   useEffect(() => {
@@ -231,19 +236,23 @@ export default function AgroviaAtualComComentarios() {
         <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {posts.length > 0 ? (
             posts.slice(0, visibleCount).map((post) => {
-              // Se a imagem começa com /uploads, usar o servidor da API
-              // Caso contrário, é uma imagem local do frontend
-              const imageUrl = post.imagemPost 
-                ? (post.imagemPost.startsWith('/uploads/') 
-                    ? `http://localhost:3001${post.imagemPost}` 
-                    : post.imagemPost)
+              // Usar imagem de destaque ou fallback
+              const imageUrl = post.imagemDestaque 
+                ? `http://localhost:3001${post.imagemDestaque}`
                 : "/images/agrovia-atual.jpg";
               
               return (
                 <article key={post.idPost} className="group">
                   {/* imagem */}
-                  <Link
+                  <a
                     href={`/post/${post.idPost}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // Salvar posição de scroll
+                      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+                      // Navegar
+                      window.location.href = `/post/${post.idPost}`;
+                    }}
                     className="block overflow-hidden rounded-[28px] relative aspect-[4/3]"
                     aria-label={post.nomePost}
                   >
@@ -253,7 +262,7 @@ export default function AgroviaAtualComComentarios() {
                       fill
                       className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                     />
-                  </Link>
+                  </a>
 
                 {/* local + comentários */}
                 <div className="mt-2 flex items-center gap-6 text-sm text-neutral-700">
@@ -272,9 +281,17 @@ export default function AgroviaAtualComComentarios() {
 
                 {/* título */}
                 <h3 className="mt-3 text-lg font-semibold leading-snug text-neutral-900">
-                  <Link href={`/post/${post.idPost}`} className="hover:underline">
+                  <a 
+                    href={`/post/${post.idPost}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+                      window.location.href = `/post/${post.idPost}`;
+                    }}
+                    className="hover:underline"
+                  >
                     {post.nomePost}
-                  </Link>
+                  </a>
                 </h3>
               </article>
             );

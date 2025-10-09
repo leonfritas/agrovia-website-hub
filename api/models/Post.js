@@ -29,18 +29,20 @@ class Post extends BaseModel {
 
   // Atualizar post
   async update(id, data) {
-    const postData = {
-      nomePost: data.nomePost,
-      descricao: data.descricao,
-      conteudo: data.conteudo,
-      idCategoria: data.idCategoria,
-      dataPost: data.dataPost,
-      idUsuario: data.idUsuario,
-      imagemPost: data.imagemPost,
-      imagemDestaque: data.imagemDestaque,
-      imagemConteudo: data.imagemConteudo,
-      linkExterno: data.linkExterno
-    };
+    const postData = {};
+    
+    // Apenas adicionar campos que foram fornecidos
+    if (data.nomePost !== undefined) postData.nomePost = data.nomePost;
+    if (data.descricao !== undefined) postData.descricao = data.descricao;
+    if (data.conteudo !== undefined) postData.conteudo = data.conteudo;
+    if (data.idCategoria !== undefined) postData.idCategoria = data.idCategoria;
+    if (data.idUsuario !== undefined) postData.idUsuario = data.idUsuario;
+    if (data.imagemPost !== undefined) postData.imagemPost = data.imagemPost;
+    if (data.imagemDestaque !== undefined) postData.imagemDestaque = data.imagemDestaque;
+    if (data.imagemConteudo !== undefined) postData.imagemConteudo = data.imagemConteudo;
+    if (data.linkExterno !== undefined) postData.linkExterno = data.linkExterno;
+    // Nunca atualizar dataPost - manter a data original
+    
     return super.update(id, postData, 'idPost');
   }
 

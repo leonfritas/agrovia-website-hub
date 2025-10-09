@@ -3,6 +3,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ScrollToTop from "@/components/ScrollToTop";
+import SaveScrollPosition from "@/components/Common/SaveScrollPosition";
 import "../styles/index.css";
 import "../styles/prism-vsc-dark-plus.css";
 import Providers from "./providers";
@@ -20,13 +21,15 @@ export default function RootLayout({
   const pathName = usePathname();
 
   const hideHeader = ["/sobre", "/info-page", "/guia", "/redes-sociais"];
+  const isPostPage = pathName?.startsWith('/post/');
 
   return (
     <html suppressHydrationWarning className="!scroll-smooth" lang="en">
       <body>
         <Providers>
           <div className="isolate">
-            {!hideHeader.includes(pathName) && <Header />}
+            <SaveScrollPosition />
+            {!hideHeader.includes(pathName) && !isPostPage && <Header />}
 
             {children}
 

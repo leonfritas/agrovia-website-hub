@@ -65,8 +65,13 @@ const createPost = async (req, res) => {
   try {
     const { nomePost, descricao, conteudo, idCategoria, idUsuario, linkExterno } = req.body;
 
+    console.log('📝 Criando novo post');
+    console.log('📦 Body recebido:', req.body);
+    console.log('🖼️ Arquivos recebidos:', req.files);
+
     // Validações
     if (!nomePost || !descricao || !idCategoria || !idUsuario) {
+      console.log('❌ Validação falhou - campos obrigatórios faltando');
       return res.status(400).json({
         error: 'Dados obrigatórios',
         message: 'Nome, descrição, categoria e usuário são obrigatórios'
@@ -88,31 +93,42 @@ const createPost = async (req, res) => {
     }
 
     // Obter caminhos das imagens enviadas
-    const imagemPost = req.files?.imagemPost ? `/uploads/${req.files.imagemPost[0].filename}` : null;
     const imagemDestaque = req.files?.imagemDestaque ? `/uploads/${req.files.imagemDestaque[0].filename}` : null;
     const imagemConteudo = req.files?.imagemConteudo ? `/uploads/${req.files.imagemConteudo[0].filename}` : null;
 
-    const post = await postModel.create({
+    console.log('🖼️ Imagem de destaque:', imagemDestaque);
+    console.log('🖼️ Imagem de conteúdo:', imagemConteudo);
+
+    const postData = {
       nomePost,
       descricao,
       conteudo,
       idCategoria: parseInt(idCategoria),
       idUsuario: parseInt(idUsuario),
-      imagemPost,
+      imagemPost: null, // Não usado mais
       imagemDestaque,
       imagemConteudo,
       linkExterno
-    });
+    };
+
+    console.log('📋 Dados para criar:', postData);
+
+    const post = await postModel.create(postData);
+
+    console.log('✅ Post criado com sucesso:', post);
 
     res.status(201).json({
       message: 'Post criado com sucesso',
       post
     });
   } catch (error) {
-    console.error('Erro ao criar post:', error);
+    console.error('❌ Erro ao criar post:', error);
+    console.error('❌ Stack trace:', error.stack);
+    console.error('❌ Mensagem:', error.message);
     res.status(500).json({
       error: 'Erro interno do servidor',
-      message: 'Não foi possível criar o post'
+      message: error.message || 'Não foi possível criar o post',
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 };
@@ -122,6 +138,10 @@ const updatePost = async (req, res) => {
   try {
     const { id } = req.params;
     const { nomePost, descricao, conteudo, idCategoria, idUsuario, linkExterno } = req.body;
+
+    console.log('📝 Atualizando post ID:', id);
+    console.log('📦 Body recebido:', req.body);
+    console.log('🖼️ Arquivos recebidos:', req.files);
 
     // Validações
     if (nomePost && nomePost.length < 3) {
@@ -145,17 +165,19 @@ const updatePost = async (req, res) => {
     if (idCategoria) updateData.idCategoria = parseInt(idCategoria);
     if (idUsuario) updateData.idUsuario = parseInt(idUsuario);
     if (linkExterno !== undefined) updateData.linkExterno = linkExterno;
+    // Não atualizar dataPost - manter a data original
     
     // Atualizar imagens se foram enviadas
-    if (req.files?.imagemPost) {
-      updateData.imagemPost = `/uploads/${req.files.imagemPost[0].filename}`;
-    }
     if (req.files?.imagemDestaque) {
       updateData.imagemDestaque = `/uploads/${req.files.imagemDestaque[0].filename}`;
+      console.log('✅ Imagem de destaque:', updateData.imagemDestaque);
     }
     if (req.files?.imagemConteudo) {
       updateData.imagemConteudo = `/uploads/${req.files.imagemConteudo[0].filename}`;
+      console.log('✅ Imagem de conteúdo:', updateData.imagemConteudo);
     }
+
+    console.log('📋 Dados para atualizar:', updateData);
 
     const post = await postModel.update(id, updateData);
 
@@ -166,15 +188,20 @@ const updatePost = async (req, res) => {
       });
     }
 
+    console.log('✅ Post atualizado com sucesso');
+
     res.json({
       message: 'Post atualizado com sucesso',
       post
     });
   } catch (error) {
-    console.error('Erro ao atualizar post:', error);
+    console.error('❌ Erro ao atualizar post:', error);
+    console.error('❌ Stack trace:', error.stack);
+    console.error('❌ Mensagem:', error.message);
     res.status(500).json({
       error: 'Erro interno do servidor',
-      message: 'Não foi possível atualizar o post'
+      message: error.message || 'Não foi possível atualizar o post',
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 };

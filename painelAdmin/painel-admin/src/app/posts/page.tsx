@@ -19,9 +19,10 @@ import { PencilIcon, TrashIcon, PlusIcon, EyeIcon } from '@heroicons/react/24/ou
 const postSchema = z.object({
   nomePost: z.string().min(3, 'Nome deve ter pelo menos 3 caracteres'),
   descricao: z.string().min(10, 'Descrição deve ter pelo menos 10 caracteres'),
+  conteudo: z.string().optional(),
   idCategoria: z.number().min(1, 'Categoria é obrigatória'),
   idUsuario: z.number().min(1, 'Usuário é obrigatório'),
-  imagemPost: z.string().url('URL da imagem deve ser válida'),
+  linkExterno: z.string().optional(),
 });
 
 type PostFormData = z.infer<typeof postSchema>;
@@ -39,6 +40,14 @@ export default function PostsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [imageFiles, setImageFiles] = useState<{
+    imagemDestaque?: File;
+    imagemConteudo?: File;
+  }>({});
+  const [imagePreviews, setImagePreviews] = useState<{
+    imagemDestaque?: string;
+    imagemConteudo?: string;
+  }>({});
 
   const {
     register,
@@ -94,20 +103,75 @@ export default function PostsPage() {
     }
   };
 
+  const handleImageChange = (field: 'imagemDestaque' | 'imagemConteudo', file: File | null) => {
+    if (file) {
+      setImageFiles(prev => ({ ...prev, [field]: file }));
+      
+      // Criar preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreviews(prev => ({ ...prev, [field]: reader.result as string }));
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImageFiles(prev => {
+        const newFiles = { ...prev };
+        delete newFiles[field];
+        return newFiles;
+      });
+      setImagePreviews(prev => {
+        const newPreviews = { ...prev };
+        delete newPreviews[field];
+        return newPreviews;
+      });
+    }
+  };
+
   const onSubmit = async (data: PostFormData) => {
     try {
+      console.log('📝 Dados do formulário:', data);
+      console.log('🖼️ Arquivos de imagem:', imageFiles);
+      
+      // Criar FormData para enviar com imagens
+      const formData = new FormData();
+      formData.append('nomePost', data.nomePost);
+      formData.append('descricao', data.descricao);
+      if (data.conteudo) formData.append('conteudo', data.conteudo);
+      formData.append('idCategoria', data.idCategoria.toString());
+      formData.append('idUsuario', data.idUsuario.toString());
+      if (data.linkExterno) formData.append('linkExterno', data.linkExterno);
+      
+      // Adicionar imagens se foram selecionadas
+      if (imageFiles.imagemDestaque) {
+        formData.append('imagemDestaque', imageFiles.imagemDestaque);
+        console.log('✅ Imagem de destaque adicionada');
+      }
+      if (imageFiles.imagemConteudo) {
+        formData.append('imagemConteudo', imageFiles.imagemConteudo);
+        console.log('✅ Imagem de conteúdo adicionada');
+      }
+
+      console.log('📤 Enviando para API...');
+
       if (editingPost) {
-        await postsAPI.update(editingPost.idPost, data);
+        const result = await postsAPI.update(editingPost.idPost, formData);
+        console.log('✅ Post atualizado:', result);
       } else {
-        await postsAPI.create(data);
+        const result = await postsAPI.create(formData);
+        console.log('✅ Post criado:', result);
       }
       
+      alert('Post salvo com sucesso!');
       setIsModalOpen(false);
       setEditingPost(null);
+      setImageFiles({});
+      setImagePreviews({});
       reset();
       loadData();
-    } catch (error) {
-      console.error('Erro ao salvar post:', error);
+    } catch (error: any) {
+      console.error('❌ Erro ao salvar post:', error);
+      console.error('Detalhes do erro:', error.response?.data || error.message);
+      alert(`Erro ao salvar post: ${error.response?.data?.message || error.message || 'Erro desconhecido'}`);
     }
   };
 
@@ -116,10 +180,16 @@ export default function PostsPage() {
     reset({
       nomePost: post.nomePost,
       descricao: post.descricao,
+      conteudo: post.conteudo,
       idCategoria: post.idCategoria,
       idUsuario: post.idUsuario,
-      imagemPost: post.imagemPost,
+      linkExterno: post.linkExterno,
     });
+    
+    // Limpar imagens selecionadas
+    setImageFiles({});
+    setImagePreviews({});
+    
     setIsModalOpen(true);
   };
 
@@ -136,6 +206,8 @@ export default function PostsPage() {
 
   const openCreateModal = () => {
     setEditingPost(null);
+    setImageFiles({});
+    setImagePreviews({});
     reset();
     setIsModalOpen(true);
   };
@@ -143,6 +215,8 @@ export default function PostsPage() {
   const closeModal = () => {
     setIsModalOpen(false);
     setEditingPost(null);
+    setImageFiles({});
+    setImagePreviews({});
     reset();
   };
 
@@ -326,13 +400,25 @@ export default function PostsPage() {
             </label>
             <textarea
               {...register('descricao')}
-              rows={4}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-900 placeholder-gray-500"
+              rows={3}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-900 placeholder-gray-500 px-3 py-2 border"
               placeholder="Digite a descrição do post"
             />
             {errors.descricao && (
               <p className="text-sm text-red-600 mt-1">{errors.descricao.message}</p>
             )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Conteúdo Completo
+            </label>
+            <textarea
+              {...register('conteudo')}
+              rows={8}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm bg-white text-gray-900 placeholder-gray-500 px-3 py-2 border"
+              placeholder="Digite o conteúdo completo do post (opcional)"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -378,11 +464,51 @@ export default function PostsPage() {
           </div>
 
           <Input
-            label="URL da Imagem"
-            {...register('imagemPost')}
-            error={errors.imagemPost?.message}
-            placeholder="https://exemplo.com/imagem.jpg"
+            label="Link Externo (opcional)"
+            {...register('linkExterno')}
+            placeholder="https://exemplo.com"
           />
+
+          {/* Upload de Imagens */}
+          <div className="space-y-4 border-t pt-4">
+            <h3 className="text-sm font-semibold text-gray-900">Imagens (opcional)</h3>
+            
+            {/* Imagem de Destaque */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Imagem de Destaque (topo do artigo)
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange('imagemDestaque', e.target.files?.[0] || null)}
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none px-3 py-2"
+              />
+              {imagePreviews.imagemDestaque && (
+                <div className="mt-2">
+                  <img src={imagePreviews.imagemDestaque} alt="Preview" className="h-32 w-auto rounded-lg border" />
+                </div>
+              )}
+            </div>
+
+            {/* Imagem do Conteúdo */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Imagem do Conteúdo (corpo do artigo)
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageChange('imagemConteudo', e.target.files?.[0] || null)}
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none px-3 py-2"
+              />
+              {imagePreviews.imagemConteudo && (
+                <div className="mt-2">
+                  <img src={imagePreviews.imagemConteudo} alt="Preview" className="h-32 w-auto rounded-lg border" />
+                </div>
+              )}
+            </div>
+          </div>
 
           <div className="flex justify-end space-x-3 pt-4">
             <Button type="button" variant="secondary" onClick={closeModal}>

@@ -56,9 +56,14 @@ console.log('🌐 Origens permitidas:', allowedOrigins);
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // máximo 100 requests por IP por janela de tempo
-  message: 'Muitas requisições deste IP, tente novamente em 15 minutos.'
+  windowMs: 1 * 60 * 1000, // 1 minuto
+  max: 1000, // máximo 1000 requests por IP por janela de tempo (aumentado para desenvolvimento)
+  message: 'Muitas requisições deste IP, tente novamente em alguns instantes.',
+  skip: (req) => {
+    // Não aplicar rate limit em ambiente de desenvolvimento para localhost
+    return process.env.NODE_ENV !== 'production' && 
+           (req.ip === '::1' || req.ip === '127.0.0.1' || req.ip === 'localhost');
+  }
 });
 app.use(limiter);
 

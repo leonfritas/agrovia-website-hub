@@ -21,11 +21,18 @@ const AgroviaEnsinaCard = ({ agroviaensina }: AgroviaEnsinaCardProps) => {
 
       {/* Link com seta */}
       <div className="mt-auto flex justify-end">
-        <Link href={agroviaensina.link}>
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white">
+        <a 
+          href={agroviaensina.link}
+          onClick={(e) => {
+            e.preventDefault();
+            sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+            window.location.href = agroviaensina.link;
+          }}
+        >
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white cursor-pointer hover:scale-110 transition-transform">
             <ArrowRight className="w-6 h-6 text-[#7B5B33]" />
           </div>
-        </Link>
+        </a>
       </div>
     </div>
   );

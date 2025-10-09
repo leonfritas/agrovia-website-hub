@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { postsStore } from '@/lib/postsStore';
 
 export interface Post {
   idPost: number;
@@ -32,45 +33,19 @@ export const usePosts = (categoriaNome?: string) => {
 
   useEffect(() => {
     let isMounted = true;
-    const controller = new AbortController();
 
-    const fetchPosts = async () => {
+    const loadPosts = async () => {
       try {
-        console.log(`🔄 Buscando posts para categoria: ${categoriaNome || 'todas'}`);
         setLoading(true);
         setError(null);
-
-        let url = `${API_BASE_URL}/posts`;
-        if (categoriaNome) {
-          url = `${API_BASE_URL}/posts/secao/${encodeURIComponent(categoriaNome)}`;
-        }
-
-        console.log(`📡 URL da requisição: ${url}`);
-
-        const response = await fetch(url, {
-          signal: controller.signal,
-          headers: {
-            'Accept': 'application/json',
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error(`Erro ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        console.log(`✅ Posts recebidos:`, data.posts?.length || 0);
-
+        
+        const data = await postsStore.getPosts(categoriaNome);
+        
         if (isMounted) {
-          setPosts(data.posts || []);
+          setPosts(data);
         }
       } catch (err) {
-        if (err instanceof Error && err.name === 'AbortError') {
-          console.log('⚠️ Requisição cancelada');
-          return;
-        }
         const errorMessage = err instanceof Error ? err.message : 'Erro desconhecido';
-        console.error('❌ Erro ao buscar posts:', errorMessage);
         if (isMounted) {
           setError(errorMessage);
         }
@@ -81,11 +56,10 @@ export const usePosts = (categoriaNome?: string) => {
       }
     };
 
-    fetchPosts();
+    loadPosts();
 
     return () => {
       isMounted = false;
-      controller.abort();
     };
   }, [categoriaNome]);
 

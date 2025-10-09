@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 interface Post {
@@ -26,25 +25,58 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/a
 
 export default function PostPage() {
   const params = useParams();
+  const router = useRouter();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [previousSection, setPreviousSection] = useState<string>('');
+
+  // Salvar posição de scroll ao carregar a página
+  useEffect(() => {
+    // Recuperar posição de scroll salva
+    const savedScrollPosition = sessionStorage.getItem('scrollPosition');
+    if (savedScrollPosition) {
+      console.log('📍 Posição de scroll salva:', savedScrollPosition);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${API_BASE_URL}/posts/${params.id}`);
+        console.log(`🔄 Buscando post ID: ${params.id}`);
+        const url = `${API_BASE_URL}/posts/${params.id}`;
+        console.log(`📡 URL: ${url}`);
+        
+        const response = await fetch(url);
+        console.log(`📊 Status: ${response.status}`);
         
         if (!response.ok) {
-          throw new Error('Post não encontrado');
+          const errorData = await response.json().catch(() => ({}));
+          console.error('❌ Erro da API:', errorData);
+          throw new Error(errorData.message || 'Post não encontrado');
         }
 
         const data = await response.json();
+        console.log('✅ Post carregado:', data.post);
         setPost(data.post);
+        
+        // Determinar a seção de origem baseada na categoria
+        const sectionMap: Record<string, string> = {
+          'Agrovia Ensina': '#agrovia-ensina',
+          'Agrovia Legal': '#agrovia-legal',
+          'Agrovia Inspira': '#agrovia-inspira',
+          'Agrovia Atual': '#agrovia-atual',
+          'Agrovia Conversa': '#agrovia-conversa',
+          'Guia Agrovia': '#guia-agrovia'
+        };
+        
+        const section = sectionMap[data.post.nomeCategoria] || '';
+        setPreviousSection(section);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Erro ao carregar post');
-        console.error('Erro ao buscar post:', err);
+        const errorMessage = err instanceof Error ? err.message : 'Erro ao carregar post';
+        setError(errorMessage);
+        console.error('❌ Erro ao buscar post:', err);
       } finally {
         setLoading(false);
       }
@@ -66,20 +98,31 @@ export default function PostPage() {
     );
   }
 
+  const handleBack = () => {
+    // Salvar que estamos voltando
+    sessionStorage.setItem('returningFromPost', 'true');
+    
+    if (previousSection) {
+      router.push(`/${previousSection}`);
+    } else {
+      router.push('/');
+    }
+  };
+
   if (error || !post) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-4">
             {error || 'Post não encontrado'}
           </h1>
-          <Link 
-            href="/" 
+          <button 
+            onClick={handleBack}
             className="inline-flex items-center gap-2 text-[#7B5B33] hover:underline"
           >
             <ArrowLeft className="w-4 h-4" />
             Voltar para página inicial
-          </Link>
+          </button>
         </div>
       </div>
     );
@@ -96,21 +139,19 @@ export default function PostPage() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Header fixo com botão voltar */}
-      <div className="sticky top-0 z-50 bg-white border-b">
-        <div className="container mx-auto px-4 py-4">
-          <Link 
-            href="/" 
-            className="inline-flex items-center gap-2 text-[#7B5B33] hover:underline"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Voltar
-          </Link>
-        </div>
+      {/* Botão voltar fixo */}
+      <div className="sticky top-4 z-50 container mx-auto px-4 max-w-4xl">
+        <button 
+          onClick={handleBack}
+          className="inline-flex items-center gap-2 bg-white shadow-lg hover:shadow-xl px-4 py-2 rounded-full border border-gray-200 text-[#7B5B33] hover:bg-gray-50 transition-all font-medium"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Voltar
+        </button>
       </div>
 
       {/* Conteúdo do post */}
-      <article className="container mx-auto px-4 py-12 max-w-4xl">
+      <article className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
         {/* Badge da categoria */}
         <span className="inline-block rounded-md bg-[#7B5B33] px-4 py-1 text-sm font-medium text-white mb-6">
           {post.nomeCategoria}
@@ -183,16 +224,6 @@ export default function PostPage() {
           </div>
         )}
 
-        {/* Botão voltar (rodapé) */}
-        <div className="mt-12 pt-8 border-t">
-          <Link 
-            href="/" 
-            className="inline-flex items-center gap-2 text-[#7B5B33] hover:underline font-medium"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Voltar para página inicial
-          </Link>
-        </div>
       </article>
     </main>
   );

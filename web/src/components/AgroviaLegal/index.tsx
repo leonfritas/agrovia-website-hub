@@ -54,12 +54,9 @@ const AgroviaLegal = () => {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">                    
           {posts.length > 0 ? (
             posts.map((post, i) => {
-              // Se a imagem começa com /uploads, usar o servidor da API
-              // Caso contrário, é uma imagem local do frontend
-              const imageUrl = post.imagemPost 
-                ? (post.imagemPost.startsWith('/uploads/') 
-                    ? `http://localhost:3001${post.imagemPost}` 
-                    : post.imagemPost)
+              // Usar imagem de destaque ou fallback
+              const imageUrl = post.imagemDestaque 
+                ? `http://localhost:3001${post.imagemDestaque}`
                 : "/images/icon.png";
               
               return (

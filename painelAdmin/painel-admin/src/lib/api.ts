@@ -196,16 +196,18 @@ export const postsAPI = {
   },
 
   create: async (data: FormData | Partial<Post>): Promise<{ message: string; post: Post }> => {
+    // Quando é FormData, deixar o axios definir o Content-Type automaticamente
     const config = data instanceof FormData ? {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { 'Content-Type': undefined }
     } : {};
     const response = await api.post('/posts', data, config);
     return response.data;
   },
 
   update: async (id: number, data: FormData | Partial<Post>): Promise<{ message: string; post: Post }> => {
+    // Quando é FormData, deixar o axios definir o Content-Type automaticamente
     const config = data instanceof FormData ? {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { 'Content-Type': undefined }
     } : {};
     const response = await api.put(`/posts/${id}`, data, config);
     return response.data;
