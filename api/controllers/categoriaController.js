@@ -212,6 +212,20 @@ const searchCategorias = async (req, res) => {
   }
 };
 
+// Obter todas as categorias (seções) para o frontend
+const getAllCategoriasForSite = async (req, res) => {
+  try {
+    const categorias = await categoriaModel.findAll();
+    res.json({ categorias });
+  } catch (error) {
+    console.error('Erro ao obter categorias para o site:', error);
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      message: 'Não foi possível obter as categorias'
+    });
+  }
+};
+
 module.exports = {
   getAllCategorias,
   getCategoriaById,
@@ -219,7 +233,8 @@ module.exports = {
   updateCategoria,
   deleteCategoria,
   getCategoriasWithPosts,
-  searchCategorias
+  searchCategorias,
+  getAllCategoriasForSite
 };
 
 

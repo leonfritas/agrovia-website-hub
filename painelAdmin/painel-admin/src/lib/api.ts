@@ -54,10 +54,14 @@ export interface Post {
   idPost: number;
   nomePost: string;
   descricao: string;
+  conteudo?: string;
   idCategoria: number;
   dataPost: string;
   idUsuario: number;
-  imagemPost: string;
+  imagemPost?: string;
+  imagemDestaque?: string;
+  imagemConteudo?: string;
+  linkExterno?: string;
   categoria?: Category;
   usuario?: User;
 }
@@ -191,13 +195,19 @@ export const postsAPI = {
     return response.data;
   },
 
-  create: async (data: Partial<Post>): Promise<{ message: string; post: Post }> => {
-    const response = await api.post('/posts', data);
+  create: async (data: FormData | Partial<Post>): Promise<{ message: string; post: Post }> => {
+    const config = data instanceof FormData ? {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    } : {};
+    const response = await api.post('/posts', data, config);
     return response.data;
   },
 
-  update: async (id: number, data: Partial<Post>): Promise<{ message: string; post: Post }> => {
-    const response = await api.put(`/posts/${id}`, data);
+  update: async (id: number, data: FormData | Partial<Post>): Promise<{ message: string; post: Post }> => {
+    const config = data instanceof FormData ? {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    } : {};
+    const response = await api.put(`/posts/${id}`, data, config);
     return response.data;
   },
 

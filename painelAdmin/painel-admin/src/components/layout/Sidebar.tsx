@@ -13,6 +13,7 @@ import {
   VideoCameraIcon,
   ChartBarIcon,
   CogIcon,
+  ChatBubbleLeftRightIcon,
 } from '@heroicons/react/24/outline';
 
 const getNavigation = (isAdmin: boolean) => [
@@ -21,6 +22,7 @@ const getNavigation = (isAdmin: boolean) => [
   { name: 'Categorias', href: '/categorias', icon: TagIcon, show: isAdmin },
   { name: 'Posts', href: '/posts', icon: DocumentTextIcon, show: isAdmin },
   { name: 'Vídeos', href: '/videos', icon: VideoCameraIcon, show: isAdmin },
+  { name: 'Comentários', href: '/comentarios', icon: ChatBubbleLeftRightIcon, show: isAdmin },
   { name: 'Relatórios', href: '/relatorios', icon: ChartBarIcon, show: isAdmin },
   { name: 'Configurações', href: '/configuracoes', icon: CogIcon, show: true },
 ];

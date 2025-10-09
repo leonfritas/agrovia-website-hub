@@ -4,14 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-
-type Post = {
-  id: number;
-  title: string;
-  image: string;
-  location: string;
-  href: string;
-};
+import { usePosts } from "@/hooks/usePosts";
 
 type Comment = {
   id: number;
@@ -21,38 +14,28 @@ type Comment = {
   avatar?: string;
 };
 
-const posts: Post[] = [
-  { id: 1, title: "Nova linha de crédito rural: o que muda?", image: "/images/agrovia-atual.jpg", location: "Diamantino", href: "/noticias/1" },
-  { id: 2, title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, incididunt ut labore et dolore magna aliqua.", image: "/images/agrovia-atual.jpg", location: "Diamantino", href: "/noticias/2" },
-  { id: 3, title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, incididunt ut labore et dolore magna aliqua.", image: "/images/agrovia-atual.jpg", location: "Diamantino", href: "/noticias/3" },
-  { id: 4, title: "Produtores recebem incentivo para agricultura sustentável", image: "/images/agrovia-atual.jpg", location: "Lucas do Rio Verde", href: "/noticias/4" },
-  { id: 5, title: "Exportação de soja bate recorde em 2025", image: "/images/agrovia-atual.jpg", location: "Sorriso", href: "/noticias/5" },
-  { id: 6, title: "Tecnologia no campo: drones auxiliam colheita", image: "/images/agrovia-atual.jpg", location: "Rondonópolis", href: "/noticias/6" },
-  { id: 7, title: "Nova linha de crédito rural: o que muda?", image: "/images/agrovia-atual.jpg", location: "Diamantino", href: "/noticias/1" },
-  { id: 8, title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, incididunt ut labore et dolore magna aliqua.", image: "/images/agrovia-atual.jpg", location: "Diamantino", href: "/noticias/2" },
-  { id: 9, title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, incididunt ut labore et dolore magna aliqua.", image: "/images/agrovia-atual.jpg", location: "Diamantino", href: "/noticias/3" },
-  { id: 10, title: "Produtores recebem incentivo para agricultura sustentável", image: "/images/agrovia-atual.jpg", location: "Lucas do Rio Verde", href: "/noticias/4" },
-  { id: 11, title: "Exportação de soja bate recorde em 2025", image: "/images/agrovia-atual.jpg", location: "Sorriso", href: "/noticias/5" },
-  { id: 12, title: "Tecnologia no campo: drones auxiliam colheita", image: "/images/agrovia-atual.jpg", location: "Rondonópolis", href: "/noticias/6" },
-];
-
-/** Mock inicial — você pode trocar por fetch depois */
-const initialComments: Record<number, Comment[]> = {
-  1: [{ id: 11, author: "Ana Paula", date: "12 set 2025", text: "Excelente iniciativa para pequenos produtores." }],
-  2: [{ id: 21, author: "Marcos", date: "10 set 2025", text: "Ótimo resumo!" }],
-  3: [],
-  4: [],
-  5: [],
-  6: [],
-};
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
 
 export default function AgroviaAtualComComentarios() {
+  const { posts, loading, error } = usePosts("Agrovia Atual");
   const [openPostId, setOpenPostId] = useState<number | null>(null);
-  const [commentsMap, setCommentsMap] = useState<Record<number, Comment[]>>(initialComments);
+  const [commentsMap, setCommentsMap] = useState<Record<number, Comment[]>>({});
+  const [commentsCount, setCommentsCount] = useState<Record<number, number>>({});
   const [form, setForm] = useState({ author: "", text: "" });
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [submitingComment, setSubmitingComment] = useState(false);
 
   // quantidade de posts visíveis
   const [visibleCount, setVisibleCount] = useState(3);
+
+  // Carregar contagem de comentários quando os posts carregarem
+  useEffect(() => {
+    if (posts.length > 0) {
+      posts.forEach(post => {
+        loadCommentsCount(post.idPost);
+      });
+    }
+  }, [posts]);
 
   // Fechar modal com ESC
   useEffect(() => {
@@ -66,14 +49,73 @@ export default function AgroviaAtualComComentarios() {
     [openPostId, commentsMap]
   );
 
-  const openComments = (postId: number) => {
+  const openComments = async (postId: number) => {
     setOpenPostId(postId);
     setForm({ author: "", text: "" });
+    
+    // Carregar comentários do banco se ainda não foram carregados
+    if (!commentsMap[postId]) {
+      await loadComments(postId);
+    }
+  };
+
+  const loadCommentsCount = async (postId: number) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`);
+      
+      if (!response.ok) return;
+
+      const data = await response.json();
+      setCommentsCount(prev => ({
+        ...prev,
+        [postId]: data.total || 0
+      }));
+    } catch (err) {
+      console.error('Erro ao carregar contagem de comentários:', err);
+    }
+  };
+
+  const loadComments = async (postId: number) => {
+    try {
+      setLoadingComments(true);
+      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`);
+      
+      if (!response.ok) {
+        throw new Error('Erro ao carregar comentários');
+      }
+
+      const data = await response.json();
+      const formattedComments = data.comentarios.map((c: any) => ({
+        id: c.idComentario,
+        author: c.nomeAutor,
+        date: new Date(c.dataComentario).toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric'
+        }),
+        text: c.textoComentario
+      }));
+
+      setCommentsMap(m => ({
+        ...m,
+        [postId]: formattedComments
+      }));
+
+      // Atualizar contagem também
+      setCommentsCount(prev => ({
+        ...prev,
+        [postId]: data.total || 0
+      }));
+    } catch (err) {
+      console.error('Erro ao carregar comentários:', err);
+    } finally {
+      setLoadingComments(false);
+    }
   };
 
   const closeComments = () => setOpenPostId(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!openPostId) return;
 
@@ -81,25 +123,90 @@ export default function AgroviaAtualComComentarios() {
     if (!text) return;
 
     const author = form.author.trim() || "Anônimo";
-    const now = new Date();
-    const date = now.toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
 
-    const newComment: Comment = {
-      id: Number(`${openPostId}${now.getTime()}`),
-      author,
-      date,
-      text,
-    };
+    try {
+      setSubmitingComment(true);
 
-    setCommentsMap((m) => ({
-      ...m,
-      [openPostId]: [...(m[openPostId] ?? []), newComment],
-    }));
+      const response = await fetch(`${API_BASE_URL}/comentarios`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          idPost: openPostId,
+          nomeAutor: author,
+          textoComentario: text
+        })
+      });
 
-    setForm({ author: "", text: "" });
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message || 'Erro ao enviar comentário');
+        return;
+      }
+
+      // Se aprovado automaticamente, adicionar à lista
+      if (data.status === 'aprovado') {
+        const newComment: Comment = {
+          id: data.comentario.idComentario,
+          author: data.comentario.nomeAutor,
+          date: new Date(data.comentario.dataComentario).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+          }),
+          text: data.comentario.textoComentario,
+        };
+
+        setCommentsMap((m) => ({
+          ...m,
+          [openPostId]: [...(m[openPostId] ?? []), newComment],
+        }));
+
+        setForm({ author: "", text: "" });
+        // Atualizar contagem
+        loadCommentsCount(openPostId);
+        alert('Comentário publicado com sucesso!');
+      } else {
+        // Comentário pendente de moderação
+        setForm({ author: "", text: "" });
+        alert('Seu comentário foi enviado e está aguardando moderação. Obrigado!');
+      }
+    } catch (err) {
+      console.error('Erro ao enviar comentário:', err);
+      alert('Erro ao enviar comentário. Tente novamente.');
+    } finally {
+      setSubmitingComment(false);
+    }
   };
 
-  const getCount = (postId: number) => (commentsMap[postId]?.length ?? 0);
+  const getCount = (postId: number) => commentsCount[postId] ?? 0;
+
+  if (loading) {
+    return (
+      <section className="relative z-20 overflow-hidden bg-white pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+        <div className="container mx-auto">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[#7B5B33]"></div>
+            <p className="mt-4 text-gray-600">Carregando conteúdo...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="relative z-20 overflow-hidden bg-white pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+        <div className="container mx-auto">
+          <div className="text-center">
+            <p className="text-red-600">Erro ao carregar conteúdo: {error}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative z-20 overflow-hidden bg-white pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
@@ -122,45 +229,61 @@ export default function AgroviaAtualComComentarios() {
 
         {/* grid de cards */}
         <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.slice(0, visibleCount).map((post) => (
-            <article key={post.id} className="group">
-              {/* imagem */}
-              <Link
-                href={post.href}
-                className="block overflow-hidden rounded-[28px] relative aspect-[4/3]"
-                aria-label={post.title}
-              >
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                />
-              </Link>
+          {posts.length > 0 ? (
+            posts.slice(0, visibleCount).map((post) => {
+              // Se a imagem começa com /uploads, usar o servidor da API
+              // Caso contrário, é uma imagem local do frontend
+              const imageUrl = post.imagemPost 
+                ? (post.imagemPost.startsWith('/uploads/') 
+                    ? `http://localhost:3001${post.imagemPost}` 
+                    : post.imagemPost)
+                : "/images/agrovia-atual.jpg";
+              
+              return (
+                <article key={post.idPost} className="group">
+                  {/* imagem */}
+                  <Link
+                    href={`/post/${post.idPost}`}
+                    className="block overflow-hidden rounded-[28px] relative aspect-[4/3]"
+                    aria-label={post.nomePost}
+                  >
+                    <Image
+                      src={imageUrl}
+                      alt={post.nomePost}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    />
+                  </Link>
 
-              {/* local + comentários */}
-              <div className="mt-2 flex items-center gap-6 text-sm text-neutral-700">
-                <span className="inline-flex items-center gap-2">
-                  📍 {post.location}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => openComments(post.id)}
-                  className="inline-flex items-center gap-2 hover:underline focus:outline-none"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  {getCount(post.id)} Comentários
-                </button>
-              </div>
+                {/* local + comentários */}
+                <div className="mt-2 flex items-center gap-6 text-sm text-neutral-700">
+                  <span className="inline-flex items-center gap-2">
+                    📍 {post.nomeUsuario}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => openComments(post.idPost)}
+                    className="inline-flex items-center gap-2 hover:underline focus:outline-none"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    {getCount(post.idPost)} Comentários
+                  </button>
+                </div>
 
-              {/* título */}
-              <h3 className="mt-3 text-lg font-semibold leading-snug text-neutral-900">
-                <Link href={post.href} className="hover:underline">
-                  {post.title}
-                </Link>
-              </h3>
-            </article>
-          ))}
+                {/* título */}
+                <h3 className="mt-3 text-lg font-semibold leading-snug text-neutral-900">
+                  <Link href={`/post/${post.idPost}`} className="hover:underline">
+                    {post.nomePost}
+                  </Link>
+                </h3>
+              </article>
+            );
+          })
+          ) : (
+            <div className="col-span-full text-center text-gray-500">
+              Nenhum conteúdo disponível no momento.
+            </div>
+          )}
         </div>
 
         {/* botão leia mais */}
@@ -194,7 +317,7 @@ export default function AgroviaAtualComComentarios() {
 
             <div className="mb-4">
               <h4 className="text-lg font-semibold text-neutral-900">
-                {posts.find((p) => p.id === openPostId)?.title}
+                {posts.find((p) => p.idPost === openPostId)?.nomePost}
               </h4>
               <p className="text-sm text-neutral-500">
                 {currentComments.length} comentário(s)
@@ -203,21 +326,29 @@ export default function AgroviaAtualComComentarios() {
 
             {/* comentários */}
             <div className="max-h-80 overflow-y-auto pr-1">
-              {currentComments.map((c) => (
-                <div key={c.id} className="mb-4 flex gap-3">
-                  <div className="h-10 w-10 shrink-0 rounded-full bg-neutral-200" />
-                  <div className="rounded-2xl bg-neutral-100 p-3">
-                    <div className="mb-1 flex items-center gap-2 text-sm">
-                      <span className="font-medium text-neutral-900">{c.author}</span>
-                      <span className="text-neutral-500">• {c.date}</span>
-                    </div>
-                    <p className="text-sm text-neutral-800">{c.text}</p>
-                  </div>
+              {loadingComments ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-neutral-900"></div>
                 </div>
-              ))}
+              ) : (
+                <>
+                  {currentComments.map((c) => (
+                    <div key={c.id} className="mb-4 flex gap-3">
+                      <div className="h-10 w-10 shrink-0 rounded-full bg-neutral-200" />
+                      <div className="rounded-2xl bg-neutral-100 p-3">
+                        <div className="mb-1 flex items-center gap-2 text-sm">
+                          <span className="font-medium text-neutral-900">{c.author}</span>
+                          <span className="text-neutral-500">• {c.date}</span>
+                        </div>
+                        <p className="text-sm text-neutral-800">{c.text}</p>
+                      </div>
+                    </div>
+                  ))}
 
-              {currentComments.length === 0 && (
-                <p className="text-sm text-neutral-500">Nenhum comentário ainda.</p>
+                  {currentComments.length === 0 && !loadingComments && (
+                    <p className="text-sm text-neutral-500">Nenhum comentário ainda. Seja o primeiro!</p>
+                  )}
+                </>
               )}
             </div>
 
@@ -241,10 +372,13 @@ export default function AgroviaAtualComComentarios() {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  disabled={!form.text.trim()}
-                  className="rounded-full bg-black px-5 py-2 text-white hover:opacity-90 disabled:opacity-50"
+                  disabled={!form.text.trim() || submitingComment}
+                  className="rounded-full bg-black px-5 py-2 text-white hover:opacity-90 disabled:opacity-50 flex items-center gap-2"
                 >
-                  Enviar
+                  {submitingComment && (
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  )}
+                  {submitingComment ? 'Enviando...' : 'Enviar'}
                 </button>
               </div>
             </form>

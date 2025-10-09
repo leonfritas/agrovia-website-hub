@@ -15,10 +15,13 @@ class Post extends BaseModel {
     const postData = {
       nomePost: data.nomePost,
       descricao: data.descricao,
+      conteudo: data.conteudo || null,
       idCategoria: data.idCategoria,
       dataPost: data.dataPost || new Date(),
       idUsuario: data.idUsuario,
       imagemPost: data.imagemPost || null,
+      imagemDestaque: data.imagemDestaque || null,
+      imagemConteudo: data.imagemConteudo || null,
       linkExterno: data.linkExterno || null
     };
     return super.create(postData);
@@ -29,10 +32,13 @@ class Post extends BaseModel {
     const postData = {
       nomePost: data.nomePost,
       descricao: data.descricao,
+      conteudo: data.conteudo,
       idCategoria: data.idCategoria,
       dataPost: data.dataPost,
       idUsuario: data.idUsuario,
       imagemPost: data.imagemPost,
+      imagemDestaque: data.imagemDestaque,
+      imagemConteudo: data.imagemConteudo,
       linkExterno: data.linkExterno
     };
     return super.update(id, postData, 'idPost');
@@ -98,8 +104,11 @@ class Post extends BaseModel {
         p.idPost,
         p.nomePost,
         p.descricao,
+        p.conteudo,
         p.dataPost,
         p.imagemPost,
+        p.imagemDestaque,
+        p.imagemConteudo,
         p.linkExterno,
         c.idCategoria,
         c.nomeCategoria,

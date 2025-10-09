@@ -63,7 +63,7 @@ const getPostById = async (req, res) => {
 // Criar novo post
 const createPost = async (req, res) => {
   try {
-    const { nomePost, descricao, idCategoria, idUsuario, imagemPost, linkExterno } = req.body;
+    const { nomePost, descricao, conteudo, idCategoria, idUsuario, linkExterno } = req.body;
 
     // Validações
     if (!nomePost || !descricao || !idCategoria || !idUsuario) {
@@ -87,12 +87,20 @@ const createPost = async (req, res) => {
       });
     }
 
+    // Obter caminhos das imagens enviadas
+    const imagemPost = req.files?.imagemPost ? `/uploads/${req.files.imagemPost[0].filename}` : null;
+    const imagemDestaque = req.files?.imagemDestaque ? `/uploads/${req.files.imagemDestaque[0].filename}` : null;
+    const imagemConteudo = req.files?.imagemConteudo ? `/uploads/${req.files.imagemConteudo[0].filename}` : null;
+
     const post = await postModel.create({
       nomePost,
       descricao,
+      conteudo,
       idCategoria: parseInt(idCategoria),
       idUsuario: parseInt(idUsuario),
       imagemPost,
+      imagemDestaque,
+      imagemConteudo,
       linkExterno
     });
 
@@ -113,7 +121,7 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nomePost, descricao, idCategoria, idUsuario, imagemPost, linkExterno } = req.body;
+    const { nomePost, descricao, conteudo, idCategoria, idUsuario, linkExterno } = req.body;
 
     // Validações
     if (nomePost && nomePost.length < 3) {
@@ -133,10 +141,21 @@ const updatePost = async (req, res) => {
     const updateData = {};
     if (nomePost) updateData.nomePost = nomePost;
     if (descricao) updateData.descricao = descricao;
+    if (conteudo !== undefined) updateData.conteudo = conteudo;
     if (idCategoria) updateData.idCategoria = parseInt(idCategoria);
     if (idUsuario) updateData.idUsuario = parseInt(idUsuario);
-    if (imagemPost !== undefined) updateData.imagemPost = imagemPost;
     if (linkExterno !== undefined) updateData.linkExterno = linkExterno;
+    
+    // Atualizar imagens se foram enviadas
+    if (req.files?.imagemPost) {
+      updateData.imagemPost = `/uploads/${req.files.imagemPost[0].filename}`;
+    }
+    if (req.files?.imagemDestaque) {
+      updateData.imagemDestaque = `/uploads/${req.files.imagemDestaque[0].filename}`;
+    }
+    if (req.files?.imagemConteudo) {
+      updateData.imagemConteudo = `/uploads/${req.files.imagemConteudo[0].filename}`;
+    }
 
     const post = await postModel.update(id, updateData);
 
@@ -201,6 +220,40 @@ const getPostsByCategoria = async (req, res) => {
     res.json({ posts });
   } catch (error) {
     console.error('Erro ao obter posts por categoria:', error);
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      message: 'Não foi possível obter os posts'
+    });
+  }
+};
+
+// Obter posts por nome da categoria (seção)
+const getPostsByCategoriaName = async (req, res) => {
+  try {
+    const { nomeCategoria } = req.params;
+    const { page = 1, limit = 10 } = req.query;
+    const offset = (page - 1) * limit;
+
+    const query = `
+      SELECT p.*, c.nomeCategoria, u.nomeUsuario
+      FROM Post p
+      INNER JOIN Categoria c ON p.idCategoria = c.idCategoria
+      INNER JOIN Usuario u ON p.idUsuario = u.idUsuario
+      WHERE c.nomeCategoria = @nomeCategoria
+      ORDER BY p.dataPost DESC
+      OFFSET @offset ROWS
+      FETCH NEXT @limit ROWS ONLY
+    `;
+    
+    const result = await postModel.executeQuery(query, { 
+      nomeCategoria, 
+      offset, 
+      limit 
+    });
+
+    res.json({ posts: result.recordset });
+  } catch (error) {
+    console.error('Erro ao obter posts por nome da categoria:', error);
     res.status(500).json({
       error: 'Erro interno do servidor',
       message: 'Não foi possível obter os posts'
@@ -297,6 +350,7 @@ module.exports = {
   updatePost,
   deletePost,
   getPostsByCategoria,
+  getPostsByCategoriaName,
   getPostsByUsuario,
   searchPosts,
   getRecentPosts,

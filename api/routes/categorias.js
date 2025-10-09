@@ -7,6 +7,9 @@ const adminMiddleware = require('../middleware/admin');
 // GET /api/categorias
 router.get('/', authMiddleware, categoriaController.getAllCategorias);
 
+// GET /api/categorias/site - Para o frontend (sem autenticação)
+router.get('/site', categoriaController.getAllCategoriasForSite);
+
 // GET /api/categorias/:id
 router.get('/:id', authMiddleware, categoriaController.getCategoriaById);
 
@@ -26,6 +29,7 @@ router.get('/with-posts', authMiddleware, categoriaController.getCategoriasWithP
 router.get('/search', authMiddleware, categoriaController.searchCategorias);
 
 module.exports = router;
+
 
 
 

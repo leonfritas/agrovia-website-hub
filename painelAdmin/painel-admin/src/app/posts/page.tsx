@@ -38,6 +38,7 @@ export default function PostsPage() {
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
 
   const {
     register,
@@ -55,7 +56,7 @@ export default function PostsPage() {
     }
 
     loadData();
-  }, [isAuthenticated, router, currentPage, isAdmin, currentUser]);
+  }, [isAuthenticated, router, currentPage, isAdmin, currentUser, selectedCategory]);
 
   const loadData = async () => {
     try {
@@ -67,7 +68,12 @@ export default function PostsPage() {
         categoriesAPI.getAll(1, 100),
       ]);
       
-      setPosts(postsRes.posts);
+      // Filtrar posts por categoria se uma categoria estiver selecionada
+      const filteredPosts = selectedCategory 
+        ? postsRes.posts.filter(post => post.idCategoria === selectedCategory)
+        : postsRes.posts;
+      
+      setPosts(filteredPosts);
       setTotalPages(postsRes.pagination.totalPages);
       setCategories(categoriesRes.categorias);
       
@@ -167,19 +173,45 @@ export default function PostsPage() {
         
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
           <div className="container mx-auto px-6 py-8">
-            <div className="mb-8 flex justify-between items-center">
-              <div>
-                <h1 className="text-2xl font-semibold text-gray-900">Posts</h1>
-                <p className="mt-1 text-sm text-gray-600">
-                  Gerencie os posts do sistema
-                </p>
+            <div className="mb-8">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h1 className="text-2xl font-semibold text-gray-900">Posts</h1>
+                  <p className="mt-1 text-sm text-gray-600">
+                    Gerencie os posts do sistema
+                  </p>
+                </div>
+                {canManageContent() && (
+                  <Button onClick={openCreateModal}>
+                    <PlusIcon className="h-5 w-5 mr-2" />
+                    Novo Post
+                  </Button>
+                )}
               </div>
-              {canManageContent() && (
-                <Button onClick={openCreateModal}>
-                  <PlusIcon className="h-5 w-5 mr-2" />
-                  Novo Post
-                </Button>
-              )}
+
+              {/* Filtro por categoria */}
+              <div className="bg-white p-4 rounded-lg shadow">
+                <label htmlFor="category-filter" className="block text-sm font-medium text-gray-700 mb-2">
+                  Filtrar por Categoria
+                </label>
+                <select
+                  id="category-filter"
+                  value={selectedCategory || ''}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSelectedCategory(value ? parseInt(value) : null);
+                    setCurrentPage(1); // Resetar para primeira página ao filtrar
+                  }}
+                  className="block w-full max-w-xs rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm px-3 py-2 border text-gray-900 bg-white"
+                >
+                  <option value="">Todas as categorias</option>
+                  {categories.map((category) => (
+                    <option key={category.idCategoria} value={category.idCategoria}>
+                      {category.nomeCategoria}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="bg-white shadow overflow-hidden sm:rounded-md">
@@ -189,7 +221,6 @@ export default function PostsPage() {
                     <TableHead>ID</TableHead>
                     <TableHead>Título</TableHead>
                     <TableHead>Descrição</TableHead>
-                    <TableHead>Categoria</TableHead>
                     <TableHead>Autor</TableHead>
                     <TableHead>Data</TableHead>
                     <TableHead>Ações</TableHead>
@@ -203,7 +234,6 @@ export default function PostsPage() {
                       <TableCell className="max-w-xs">
                         {truncateText(post.descricao, 50)}
                       </TableCell>
-                      <TableCell>{getCategoryName(post.idCategoria)}</TableCell>
                       <TableCell>{getUserName(post.idUsuario)}</TableCell>
                       <TableCell>{formatDate(post.dataPost)}</TableCell>
                       <TableCell>

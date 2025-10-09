@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 const { connectDB } = require('./utils/database');
 require('dotenv').config();
 
@@ -68,6 +69,9 @@ app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Servir arquivos estáticos da pasta uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Rotas
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
@@ -76,6 +80,7 @@ app.use('/api/posts', require('./routes/posts'));
 app.use('/api/videos', require('./routes/videos'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/newsletter', require('./routes/newsletter'));
+app.use('/api/comentarios', require('./routes/comentarios'));
 
 // Rota de health check
 app.get('/api/health', (req, res) => {
