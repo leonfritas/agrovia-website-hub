@@ -12,11 +12,46 @@ const PORT = process.env.PORT || 3001;
 // Middleware de segurança
 app.use(helmet());
 
-// CORS
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
-}));
+// --- CORS ---
+let allowedOrigins = [];
+
+if (process.env.NODE_ENV === 'production') {
+  allowedOrigins = (process.env.FRONTEND_URLS || '')
+    .split(',')
+    .map(url => url.trim())
+    .filter(Boolean);
+} else {
+  // Ambiente de desenvolvimento
+  allowedOrigins = [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:3002',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
+    'http://127.0.0.1:3002'
+  ];
+}
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Permite requisições internas (Postman, scripts locais)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.warn(`🚫 CORS bloqueado para origem: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+
+console.log('🌐 Origens permitidas:', allowedOrigins);
+
+
 
 // Rate limiting
 const limiter = rateLimit({
