@@ -41,7 +41,7 @@ export default function AgroviaAtualComComentarios() {
         }
       });
     }
-  }, [posts.length]); // Usar posts.length ao invés de posts para evitar loop
+  }, [posts]); // Incluir posts como dependência
 
   // Fechar modal com ESC
   useEffect(() => {
