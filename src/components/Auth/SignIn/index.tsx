@@ -1,5 +1,5 @@
 "use client";
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,7 +26,7 @@ const Signin = () => {
     e.preventDefault();
 
     setLoading(true);
-    signIn("credentials", { ...loginData, redirect: false })
+    // signIn("credentials", { ...loginData, redirect: false })
       .then((callback) => {
         if (callback?.error) {
           toast.error(callback?.error);
