@@ -1,5 +1,5 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
+// import { signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,7 +9,8 @@ import { useEffect, useState } from "react";
 import menuData from "./menuData";
 
 const Header = () => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+  const session = null; // Temporarily disable auth
 
   const pathUrl = usePathname();
 
