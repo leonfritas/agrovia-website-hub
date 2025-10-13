@@ -21,7 +21,7 @@ interface CacheEntry {
   timestamp: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://5acfae47b7cd.ngrok-free.app/api';
 const CACHE_DURATION = 60000; // 60 segundos
 
 class PostsStore {
@@ -80,6 +80,8 @@ class PostsStore {
     const requestPromise = fetch(url, {
       headers: {
         'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+        'Content-Type': 'application/json'
       }
     })
       .then(async (response) => {

@@ -5,14 +5,26 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
-        port: '3001',
+        port: '4000',
         pathname: '/**',
       },
       {
         protocol: 'http',
         hostname: '127.0.0.1',
-        port: '3001',
+        port: '4000',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.ngrok.io',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.ngrok-free.app',
+      },
+      {
+        protocol: 'https',
+        hostname: '5acfae47b7cd.ngrok-free.app',
       },
     ],
   },

@@ -21,7 +21,7 @@ interface Post {
   nomeUsuario: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://5acfae47b7cd.ngrok-free.app/api';
 
 export default function PostPage() {
   const params = useParams();
@@ -48,7 +48,13 @@ export default function PostPage() {
         const url = `${API_BASE_URL}/posts/${params.id}`;
         console.log(`📡 URL: ${url}`);
         
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          headers: {
+            'Accept': 'application/json',
+            'ngrok-skip-browser-warning': 'true',
+            'Content-Type': 'application/json'
+          }
+        });
         console.log(`📊 Status: ${response.status}`);
         
         if (!response.ok) {

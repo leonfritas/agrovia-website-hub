@@ -14,7 +14,7 @@ type Comment = {
   avatar?: string;
 };
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://5acfae47b7cd.ngrok-free.app/api';
 
 export default function AgroviaAtualComComentarios() {
   const { posts, loading, error } = usePosts("Agrovia Atual");
@@ -66,7 +66,13 @@ export default function AgroviaAtualComComentarios() {
 
   const loadCommentsCount = async (postId: number) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`);
+      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`, {
+        headers: {
+          'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+          'Content-Type': 'application/json'
+        }
+      });
       
       if (!response.ok) return;
 
@@ -83,7 +89,13 @@ export default function AgroviaAtualComComentarios() {
   const loadComments = async (postId: number) => {
     try {
       setLoadingComments(true);
-      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`);
+      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`, {
+        headers: {
+          'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
+          'Content-Type': 'application/json'
+        }
+      });
       
       if (!response.ok) {
         throw new Error('Erro ao carregar comentários');
@@ -135,6 +147,8 @@ export default function AgroviaAtualComComentarios() {
       const response = await fetch(`${API_BASE_URL}/comentarios`, {
         method: 'POST',
         headers: {
+          'Accept': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -237,8 +251,12 @@ export default function AgroviaAtualComComentarios() {
           {posts.length > 0 ? (
             posts.slice(0, visibleCount).map((post) => {
               // Usar imagem de destaque ou fallback
+              // Remove barra inicial se existir para evitar //
+              const imagePath = post.imagemDestaque?.startsWith('/') 
+                ? post.imagemDestaque.substring(1) 
+                : post.imagemDestaque;
               const imageUrl = post.imagemDestaque 
-                ? `http://localhost:3001${post.imagemDestaque}`
+                ? `${API_BASE_URL.replace('/api', '')}/${imagePath}`
                 : "/images/agrovia-atual.jpg";
               
               return (
