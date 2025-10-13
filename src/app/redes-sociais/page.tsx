@@ -36,13 +36,15 @@ export default function FacebookPosts() {
             />
           )}
           <p className="mt-2 text-gray-700">{post.message}</p>
-          <Link
-            href={post.permalink_url}
-            target="_blank"
-            className="text-blue-600 mt-2 block"
-          >
-            Ver no Facebook
-          </Link>
+          {post.permalink_url && (
+            <Link
+              href={post.permalink_url}
+              target="_blank"
+              className="text-blue-600 mt-2 block"
+            >
+              Ver no Facebook
+            </Link>
+          )}
         </div>
       ))}
     </section>
