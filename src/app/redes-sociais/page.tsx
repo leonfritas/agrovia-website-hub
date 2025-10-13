@@ -4,8 +4,14 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+interface FacebookPost {
+  full_picture?: string;
+  message?: string;
+  permalink_url?: string;
+}
+
 export default function FacebookPosts() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<FacebookPost[]>([]);
 
   useEffect(() => {
     async function fetchPosts() {
