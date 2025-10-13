@@ -27,25 +27,29 @@ const Signin = () => {
 
     setLoading(true);
     // signIn("credentials", { ...loginData, redirect: false })
-      .then((callback) => {
-        if (callback?.error) {
-          toast.error(callback?.error);
-          console.log(callback?.error);
-          setLoading(false);
-          return;
-        }
+    //   .then((callback) => {
+    //     if (callback?.error) {
+    //       toast.error(callback?.error);
+    //       console.log(callback?.error);
+    //       setLoading(false);
+    //       return;
+    //     }
 
-        if (callback?.ok && !callback?.error) {
-          toast.success("Login successful");
-          setLoading(false);
-          router.push("/");
-        }
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err.message);
-        toast.error(err.message);
-      });
+    //     if (callback?.ok && !callback?.error) {
+    //       toast.success("Login successful");
+    //       setLoading(false);
+    //       router.push("/");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setLoading(false);
+    //     console.log(err.message);
+    //     toast.error(err.message);
+    //   });
+    
+    // Temporarily disabled - NextAuth removed
+    toast.error("Login temporarily disabled");
+    setLoading(false);
   };
 
   return (
