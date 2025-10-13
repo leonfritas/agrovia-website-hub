@@ -117,7 +117,7 @@ O header `ngrok-skip-browser-warning: true` é **essencial** porque:
 
 2. Atualize a URL no `.env.local`:
    ```env
-   NEXT_PUBLIC_API_URL=https://sua-nova-url.ngrok-free.app/api
+   NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
    ```
 
 3. Reinicie o servidor Next.js:
