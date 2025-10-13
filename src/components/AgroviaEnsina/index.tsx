@@ -3,8 +3,7 @@
 
 import AgroviaEnsinaCard from "./AgroviaEnsinaCard";
 import { usePosts } from "@/hooks/usePosts";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://5acfae47b7cd.ngrok-free.app/api';
+import { getValidImageUrl } from "@/utils/imageUrl";
 
 const AgroviaEnsina = () => {
   const { posts, loading, error } = usePosts("Agrovia Ensina");
@@ -55,13 +54,7 @@ const AgroviaEnsina = () => {
           {posts.length > 0 ? (
             posts.map((post, i) => {
               // Usar imagem de destaque ou fallback
-              // Remove barra inicial se existir para evitar //
-              const imagePath = post.imagemDestaque?.startsWith('/') 
-                ? post.imagemDestaque.substring(1) 
-                : post.imagemDestaque;
-              const imageUrl = post.imagemDestaque 
-                ? `${API_BASE_URL.replace('/api', '')}/${imagePath}`
-                : "/images/icon.png";
+              const imageUrl = getValidImageUrl(post.imagemDestaque, "/images/icon.png");
               
               return (
                 <AgroviaEnsinaCard 

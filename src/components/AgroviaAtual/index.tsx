@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MessageCircle, X } from "lucide-react";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { usePosts } from "@/hooks/usePosts";
+import { getValidImageUrl } from "@/utils/imageUrl";
 
 type Comment = {
   id: number;
@@ -251,13 +252,7 @@ export default function AgroviaAtualComComentarios() {
           {posts.length > 0 ? (
             posts.slice(0, visibleCount).map((post) => {
               // Usar imagem de destaque ou fallback
-              // Remove barra inicial se existir para evitar //
-              const imagePath = post.imagemDestaque?.startsWith('/') 
-                ? post.imagemDestaque.substring(1) 
-                : post.imagemDestaque;
-              const imageUrl = post.imagemDestaque 
-                ? `${API_BASE_URL.replace('/api', '')}/${imagePath}`
-                : "/images/agrovia-atual.jpg";
+              const imageUrl = getValidImageUrl(post.imagemDestaque, "/images/agrovia-atual.jpg");
               
               return (
                 <article key={post.idPost} className="group">
