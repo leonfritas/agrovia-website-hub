@@ -1,6 +1,10 @@
-import NextAuth from "next-auth/next";
-import { authOptions } from "@/utils/auth";
+// Temporarily disable NextAuth API route
+import { NextResponse } from "next/server";
 
-const handler = NextAuth(authOptions);
+export async function GET() {
+  return NextResponse.json({ error: "NextAuth temporarily disabled" }, { status: 503 });
+}
 
-export { handler as GET, handler as POST };
+export async function POST() {
+  return NextResponse.json({ error: "NextAuth temporarily disabled" }, { status: 503 });
+}
