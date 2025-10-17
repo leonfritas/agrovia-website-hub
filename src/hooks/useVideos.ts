@@ -6,7 +6,6 @@ export interface Video {
   descricao: string;
   urlArquivo?: string;
   urlExterno?: string;
-  imagemThumb?: string;
   nomeAutor?: string;
   cargoAutor?: string;
   dataUpload: string;
@@ -33,7 +32,7 @@ export function useVideos(categoria?: string) {
           params.append('categoria', categoria);
         }
         
-        const response = await fetch(`/api/videos?${params}`);
+        const response = await fetch(`/api/videos-v2?${params}`);
         const data = await response.json();
         
         if (data.success) {

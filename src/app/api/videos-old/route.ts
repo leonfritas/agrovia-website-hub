@@ -81,22 +81,20 @@ export async function GET(request: NextRequest) {
       // Tentar buscar do banco de dados
       const whereClause = categoria 
         ? { 
-            ativo: true,
             categoria: {
               nomeCategoria: categoria
             }
           }
-        : { ativo: true };
+        : {};
         
       const videosDB = await prismaDB.video.findMany({
         where: whereClause,
         include: {
           categoria: true
         },
-        orderBy: [
-          { ordem: 'asc' },
-          { dataUpload: 'desc' }
-        ]
+        orderBy: {
+          dataUpload: 'desc'
+        }
       });
       
       if (videosDB.length > 0) {
@@ -106,7 +104,6 @@ export async function GET(request: NextRequest) {
           descricao: video.descricao,
           urlArquivo: video.urlArquivo,
           urlExterno: video.urlExterno,
-          imagemThumb: video.imagemThumb,
           nomeAutor: video.nomeAutor,
           cargoAutor: video.cargoAutor,
           dataUpload: video.dataUpload.toISOString(),

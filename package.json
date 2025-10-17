@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
+    "build:with-prisma": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -16,6 +17,7 @@
     "date-fns": "^3.4.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.544.0",
+    "mssql": "^12.0.0",
     "next": "15.3.0",
     "next-themes": "^0.4.6",
     "nodemailer": "^6.9.12",
@@ -34,6 +36,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/mssql": "^9.1.8",
     "@types/node": "^20.11.27",
     "@types/nodemailer": "^6.4.14",
     "@types/prismjs": "^1.26.3",

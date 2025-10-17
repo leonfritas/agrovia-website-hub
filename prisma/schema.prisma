@@ -60,27 +60,26 @@ model VerificationToken {
 }
 
 model Categoria {
-  idCategoria    Int      @id @default(autoincrement())
-  nomeCategoria  String   @unique
-  descricao      String?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  idCategoria    Int      @id @map("idCategoria")
+  nomeCategoria  String?  @map("nomeCategoria")
+  descricao      String?  @map("descricao")
   videos         Video[]
+  
+  @@map("Categoria")
 }
 
 model Video {
-  idVideo        Int      @id @default(autoincrement())
-  nomeVideo      String
-  descricao      String?
-  urlArquivo     String?  // URL do arquivo local
-  urlExterno     String?  // URL externa (YouTube, Vimeo, etc.)
-  imagemThumb    String?  // URL da imagem de thumbnail
-  nomeAutor      String?  // Nome do autor/palestrante
-  cargoAutor     String?  // Cargo do autor
-  ativo          Boolean  @default(true)
-  ordem          Int?     // Para ordenação personalizada
-  dataUpload     DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  categoriaId    Int
-  categoria      Categoria @relation(fields: [categoriaId], references: [idCategoria])
+  idVideo        Int      @id @default(autoincrement()) @map("idVideo")
+  nomeVideo      String   @map("nomeVideo")
+  urlArquivo     String?  @map("urlArquivo")
+  urlExterno     String?  @map("urlExterno")
+  descricao      String   @map("descricao")
+  idUsuario      Int      @map("idUsuario")
+  dataUpload     DateTime @map("dataUpload")
+  idCategoria    Int      @map("idCategoria")
+  nomeAutor      String?  @map("nomeAutor")
+  cargoAutor     String?  @map("cargoAutor")
+  categoria      Categoria @relation(fields: [idCategoria], references: [idCategoria])
+  
+  @@map("Video")
 }
