@@ -2,9 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, X, Loader2 } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useVideos } from "@/hooks/useVideos";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -20,37 +21,12 @@ type Conversa = {
   video: string;
 };
 
-const conversas: Conversa[] = [
-  {
-    id: 1,
-    bg: "/images/agrovia-conversa-bg.jpg",
-    foto: "/images/agrovia-conversa1.jpg",
-    titulo:
-      "Eng. Florestal Carlos Prado fala sobre reflorestamento e mercado de carbono.",
-    resumo:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
-    cargo: "Eng. Florestal",
-    nome: "Carlos Prado",
-    video: "/videos/agrovia-conversa-1.mp4",
-  },
-  {
-    id: 2,
-    bg: "/images/agrovia-conversa-bg.jpg",
-    foto: "/images/agrovia-conversa2.jpg",
-    titulo:
-      "Profa. Marina Souza comenta práticas de ILPF no Centro-Oeste.",
-    resumo:
-      "Conteúdo introdutório sobre Integração Lavoura-Pecuária-Floresta, desafios e ganhos de produtividade no médio prazo.",
-    cargo: "Pesquisadora",
-    nome: "Marina Souza",
-    video: "/videos/agrovia-conversa-2.mp4",
-  },
-];
 
 export default function AgroviaConversa() {
   const [open, setOpen] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
   const [active, setActive] = useState(0);
+  const { videos, loading, error, source } = useVideos('Agrovia Conversa');
 
   // refs p/ medir onde começa o slider
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -77,6 +53,42 @@ export default function AgroviaConversa() {
     setVideoUrl(url);
     setOpen(true);
   };
+
+  // Dados estáticos como fallback
+  const conversasFallback: Conversa[] = [
+    {
+      id: 1,
+      bg: "/images/agrovia-conversa-bg.jpg",
+      foto: "/images/agrovia-conversa1.jpg",
+      titulo: "Eng. Florestal Carlos Prado fala sobre reflorestamento e mercado de carbono.",
+      resumo: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+      cargo: "Eng. Florestal",
+      nome: "Carlos Prado",
+      video: "/videos/agrovia-conversa-1.mp4",
+    },
+    {
+      id: 2,
+      bg: "/images/agrovia-conversa-bg.jpg",
+      foto: "/images/agrovia-conversa2.jpg",
+      titulo: "Profa. Marina Souza comenta práticas de ILPF no Centro-Oeste.",
+      resumo: "Conteúdo introdutório sobre Integração Lavoura-Pecuária-Floresta, desafios e ganhos de produtividade no médio prazo.",
+      cargo: "Pesquisadora",
+      nome: "Marina Souza",
+      video: "/videos/agrovia-conversa-2.mp4",
+    },
+  ];
+
+  // Converter vídeos do banco para formato do componente
+  const conversas = videos.length > 0 ? videos.map((video, index) => ({
+    id: video.idVideo,
+    bg: "/images/agrovia-conversa-bg.jpg",
+    foto: `/images/agrovia-conversa${(index % 2) + 1}.jpg`,
+    titulo: video.nomeVideo,
+    resumo: video.descricao,
+    cargo: "Especialista",
+    nome: "Especialista",
+    video: video.urlArquivo || video.urlExterno || '',
+  })) : conversasFallback;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
@@ -111,9 +123,27 @@ export default function AgroviaConversa() {
 
       <div className="container mx-auto px-4">
         {/* selo */}
-        <span className="inline-block rounded-md bg-[#7B5B33] px-4 py-1 text-sm text-white">
-          Agrovia Conversa
-        </span>
+        <div>
+          <span className="inline-block rounded-md bg-[#7B5B33] px-4 py-1 text-sm text-white">
+            Agrovia Conversa
+          </span>
+          {loading && (
+            <div className="mt-2 flex items-center gap-2 text-white/70">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span className="text-sm">Carregando vídeos...</span>
+            </div>
+          )}
+          {error && (
+            <div className="mt-2 text-red-300 text-sm">
+              {error} - Usando dados de exemplo
+            </div>
+          )}
+          {source === 'mock' && (
+            <div className="mt-2 text-yellow-300 text-sm">
+              ℹ️ Usando dados de demonstração
+            </div>
+          )}
+        </div>
 
         {/* título (SEM bg por trás) */}
         <h2 className="mt-6 max-w-5xl text-3xl font-extrabold leading-tight text-white md:text-5xl">

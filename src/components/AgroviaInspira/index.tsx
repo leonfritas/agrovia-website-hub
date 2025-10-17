@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, Star, ArrowLeft, ArrowRight } from "lucide-react";
+import { X, Star, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useVideos } from "@/hooks/useVideos";
 
 interface Depoimento {
   id: number;
@@ -15,33 +16,45 @@ interface Depoimento {
   produtor: string;
 }
 
-const depoimentos: Depoimento[] = [
-  {
-    id: 1,
-    imagem: "/images/agrovia-inspira1.jpg",
-    video: "/videos/agrovia-inspira1.mp4",
-    titulo: "Seu João e os filhos",
-    texto: "40 anos de produção familiar em Goiás.",
-    produtor: "Jorge Santos",
-  },
-  {
-    id: 2,
-    imagem: "/images/agrovia-inspira2.jpg",
-    video: "/videos/agrovia-inspira2.mp4",
-    titulo: "Dona Maria e a cooperativa",
-    texto: "Histórias de superação e agricultura sustentável.",
-    produtor: "Maria Oliveira",
-  },
-];
-
 export default function AgroviaInspira() {
   const [isOpen, setIsOpen] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const { videos, loading, error, source } = useVideos('Agrovia Inspira');
 
   const abrirVideo = (url: string) => {
     setVideoUrl(url);
     setIsOpen(true);
   };
+
+  // Dados estáticos como fallback
+  const depoimentosFallback: Depoimento[] = [
+    {
+      id: 1,
+      imagem: "/images/agrovia-inspira1.jpg",
+      video: "/videos/agrovia-inspira1.mp4",
+      titulo: "Seu João e os filhos",
+      texto: "40 anos de produção familiar em Goiás.",
+      produtor: "Jorge Santos",
+    },
+    {
+      id: 2,
+      imagem: "/images/agrovia-inspira2.jpg",
+      video: "/videos/agrovia-inspira2.mp4",
+      titulo: "Dona Maria e a cooperativa",
+      texto: "Histórias de superação e agricultura sustentável.",
+      produtor: "Maria Oliveira",
+    },
+  ];
+
+  // Converter vídeos do banco para formato do componente
+  const depoimentos = videos.length > 0 ? videos.map((video, index) => ({
+    id: video.idVideo,
+    imagem: `/images/agrovia-inspira${(index % 2) + 1}.jpg`, // Usar imagens existentes
+    video: video.urlArquivo || video.urlExterno || '',
+    titulo: video.nomeVideo,
+    texto: video.descricao,
+    produtor: "Produtor Rural",
+  })) : depoimentosFallback;
 
   return (
     <section id="agrovia-inspira" className="relative z-10 bg-emerald-900 py-16 lg:py-24">
@@ -51,6 +64,22 @@ export default function AgroviaInspira() {
           <span className="px-4 py-1 rounded-md bg-[#7B5B33] text-white text-sm">
             Agrovia Inspira
           </span>
+          {loading && (
+            <div className="mt-2 flex items-center gap-2 text-white/70">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              <span className="text-sm">Carregando vídeos...</span>
+            </div>
+          )}
+          {error && (
+            <div className="mt-2 text-red-300 text-sm">
+              {error} - Usando dados de exemplo
+            </div>
+          )}
+          {source === 'mock' && (
+            <div className="mt-2 text-yellow-300 text-sm">
+              ℹ️ Usando dados de demonstração
+            </div>
+          )}
         </div>
 
         {/* Carrossel */}
