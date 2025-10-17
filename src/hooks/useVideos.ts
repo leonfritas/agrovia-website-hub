@@ -6,6 +6,9 @@ export interface Video {
   descricao: string;
   urlArquivo?: string;
   urlExterno?: string;
+  imagemThumb?: string;
+  nomeAutor?: string;
+  cargoAutor?: string;
   dataUpload: string;
   categoria?: {
     idCategoria: number;

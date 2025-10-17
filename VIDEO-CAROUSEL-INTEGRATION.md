@@ -128,3 +128,4 @@ NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
 - [ ] Adicionar thumbnails personalizados
 - [ ] Implementar analytics de visualização
 - [ ] Adicionar sistema de tags/categorias adicionais
+

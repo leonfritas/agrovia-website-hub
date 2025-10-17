@@ -82,11 +82,11 @@ export default function AgroviaConversa() {
   const conversas = videos.length > 0 ? videos.map((video, index) => ({
     id: video.idVideo,
     bg: "/images/agrovia-conversa-bg.jpg",
-    foto: `/images/agrovia-conversa${(index % 2) + 1}.jpg`,
+    foto: video.imagemThumb || `/images/agrovia-conversa${(index % 2) + 1}.jpg`,
     titulo: video.nomeVideo,
-    resumo: video.descricao,
-    cargo: "Especialista",
-    nome: "Especialista",
+    resumo: video.descricao || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
+    cargo: video.cargoAutor || "Especialista",
+    nome: video.nomeAutor || "Especialista",
     video: video.urlArquivo || video.urlExterno || '',
   })) : conversasFallback;
 

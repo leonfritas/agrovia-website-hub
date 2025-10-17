@@ -49,11 +49,11 @@ export default function AgroviaInspira() {
   // Converter vídeos do banco para formato do componente
   const depoimentos = videos.length > 0 ? videos.map((video, index) => ({
     id: video.idVideo,
-    imagem: `/images/agrovia-inspira${(index % 2) + 1}.jpg`, // Usar imagens existentes
+    imagem: video.imagemThumb || `/images/agrovia-inspira${(index % 2) + 1}.jpg`,
     video: video.urlArquivo || video.urlExterno || '',
     titulo: video.nomeVideo,
-    texto: video.descricao,
-    produtor: "Produtor Rural",
+    texto: video.descricao || "Depoimento inspirador sobre agricultura sustentável.",
+    produtor: video.nomeAutor || "Produtor Rural",
   })) : depoimentosFallback;
 
   return (
