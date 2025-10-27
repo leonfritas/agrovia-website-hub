@@ -91,7 +91,7 @@ agrovia-admin/
 ### **Variável de Ambiente:**
 ```bash
 # No projeto agrovia-website
-NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
+NEXT_PUBLIC_API_URL=https://93c44447ef94.ngrok-free.app/api
 ```
 
 ### **Dependências:**

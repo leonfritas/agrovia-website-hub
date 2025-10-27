@@ -21,7 +21,7 @@ interface CacheEntry {
   timestamp: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://5acfae47b7cd.ngrok-free.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://93c44447ef94.ngrok-free.app/api';
 const CACHE_DURATION = 60000; // 60 segundos
 
 class PostsStore {

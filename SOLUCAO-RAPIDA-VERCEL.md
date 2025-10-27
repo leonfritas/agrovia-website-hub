@@ -47,7 +47,7 @@ Environment: Production, Preview, Development
 #### **Variável 4:**
 ```
 Name: NEXT_PUBLIC_API_URL
-Value: https://5acfae47b7cd.ngrok-free.app/api
+Value: https://93c44447ef94.ngrok-free.app/api
 Environment: Production, Preview, Development
 ```
 
@@ -123,7 +123,7 @@ DATABASE_URL=file:./prisma/dev.db
 ### **Variáveis Opcionais:**
 
 ```env
-NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
+NEXT_PUBLIC_API_URL=https://93c44447ef94.ngrok-free.app/api
 SITE_URL=https://agrovia-website-hub.vercel.app
 ```
 

@@ -78,16 +78,54 @@ export default function AgroviaConversa() {
     },
   ];
 
+  // Função para corrigir caminho do vídeo
+  const corrigirCaminhoVideo = (url: string | undefined) => {
+    if (!url) return '';
+    // Se começar com ./public/, remover e adicionar /
+    if (url.startsWith('./public/')) {
+      return url.replace('./public', '');
+    }
+    // Se começar com public/, adicionar /
+    if (url.startsWith('public/')) {
+      return '/' + url;
+    }
+    // Se já começar com /, retornar como está
+    if (url.startsWith('/')) {
+      return url;
+    }
+    // Caso contrário, adicionar /
+    return '/' + url;
+  };
+
+  // Função para corrigir caminho da imagem/capa
+  const corrigirCaminhoImagem = (url: string | undefined) => {
+    if (!url) return '';
+    // Se começar com ./public/, remover e adicionar /
+    if (url.startsWith('./public/')) {
+      return url.replace('./public', '');
+    }
+    // Se começar com public/, adicionar /
+    if (url.startsWith('public/')) {
+      return '/' + url;
+    }
+    // Se já começar com /, retornar como está
+    if (url.startsWith('/')) {
+      return url;
+    }
+    // Caso contrário, adicionar /
+    return '/' + url;
+  };
+
   // Converter vídeos do banco para formato do componente
   const conversas = videos.length > 0 ? videos.map((video, index) => ({
     id: video.idVideo,
     bg: "/images/agrovia-conversa-bg.jpg",
-    foto: `/images/agrovia-conversa${(index % 2) + 1}.jpg`, // Usar imagens padrão já que não temos campo imagemThumb
+    foto: corrigirCaminhoImagem(video.urlCapa) || `/images/agrovia-conversa${(index % 2) + 1}.jpg`, // Usar capa do banco ou fallback
     titulo: video.nomeVideo,
     resumo: video.descricao || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.",
     cargo: video.cargoAutor || "Especialista",
     nome: video.nomeAutor || "Especialista",
-    video: video.urlArquivo || video.urlExterno || '',
+    video: corrigirCaminhoVideo(video.urlArquivo) || video.urlExterno || '',
   })) : conversasFallback;
 
   useEffect(() => {

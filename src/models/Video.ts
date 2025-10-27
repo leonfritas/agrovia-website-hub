@@ -1,11 +1,13 @@
 // Classe Video adaptada para Next.js/TypeScript
 // Baseada na sua classe Video original
+require('dotenv').config({ path: '.env.local' });
 
 export interface VideoData {
   idVideo?: number;
   nomeVideo: string;
   urlArquivo?: string | null;
   urlExterno?: string | null;
+  urlCapa?: string | null;
   descricao?: string | null;
   idUsuario: number;
   dataUpload?: Date;
@@ -149,6 +151,7 @@ class Video {
           v.nomeVideo,
           v.urlArquivo,
           v.urlExterno,
+          v.urlCapa,
           v.descricao,
           v.dataUpload,
           v.nomeAutor,
@@ -211,13 +214,21 @@ class Video {
       console.log('🔍 Executando query:', query);
       console.log('📋 Parâmetros:', params);
       
-      // Configuração da conexão
+      // Verificar se todas as variáveis de ambiente necessárias estão definidas
+      const requiredEnvVars = ['DB_SERVER', 'DB_DATABASE', 'DB_USER', 'DB_PASSWORD', 'DB_PORT'];
+      const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+      
+      if (missingVars.length > 0) {
+        throw new Error(`Variáveis de ambiente obrigatórias não definidas: ${missingVars.join(', ')}`);
+      }
+      
+      // Configuração da conexão usando apenas variáveis de ambiente
       const config = {
-        server: process.env.DB_SERVER || 'localhost',
-        database: process.env.DB_DATABASE || 'Agrovia',
-        user: process.env.DB_USER || 'sa',
-        password: process.env.DB_PASSWORD || '',
-        port: parseInt(process.env.DB_PORT || '1433'),
+        server: process.env.DB_SERVER!,
+        database: process.env.DB_DATABASE!,
+        user: process.env.DB_USER!,
+        password: process.env.DB_PASSWORD!,
+        port: parseInt(process.env.DB_PORT!),
         options: {
           encrypt: process.env.DB_ENCRYPT === 'true',
           trustServerCertificate: process.env.DB_TRUST_CERT === 'true',

@@ -24,7 +24,7 @@ Seu site está na **Vercel** (produção) tentando acessar sua API local via **n
 NEXTAUTH_SECRET=sua-chave-secreta-para-producao
 NEXTAUTH_URL=https://seu-projeto.vercel.app
 DATABASE_URL=sua-url-do-banco-em-producao
-NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
+NEXT_PUBLIC_API_URL=https://93c44447ef94.ngrok-free.app/api
 SITE_URL=https://seu-projeto.vercel.app
 
 # OPCIONAIS (se usar)

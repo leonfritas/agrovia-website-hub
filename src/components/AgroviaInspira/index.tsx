@@ -46,11 +46,49 @@ export default function AgroviaInspira() {
     },
   ];
 
+  // Função para corrigir caminho do vídeo
+  const corrigirCaminhoVideo = (url: string | undefined) => {
+    if (!url) return '';
+    // Se começar com ./public/, remover e adicionar /
+    if (url.startsWith('./public/')) {
+      return url.replace('./public', '');
+    }
+    // Se começar com public/, adicionar /
+    if (url.startsWith('public/')) {
+      return '/' + url;
+    }
+    // Se já começar com /, retornar como está
+    if (url.startsWith('/')) {
+      return url;
+    }
+    // Caso contrário, adicionar /
+    return '/' + url;
+  };
+
+  // Função para corrigir caminho da imagem/capa
+  const corrigirCaminhoImagem = (url: string | undefined) => {
+    if (!url) return '';
+    // Se começar com ./public/, remover e adicionar /
+    if (url.startsWith('./public/')) {
+      return url.replace('./public', '');
+    }
+    // Se começar com public/, adicionar /
+    if (url.startsWith('public/')) {
+      return '/' + url;
+    }
+    // Se já começar com /, retornar como está
+    if (url.startsWith('/')) {
+      return url;
+    }
+    // Caso contrário, adicionar /
+    return '/' + url;
+  };
+
   // Converter vídeos do banco para formato do componente
   const depoimentos = videos.length > 0 ? videos.map((video, index) => ({
     id: video.idVideo,
-    imagem: `/images/agrovia-inspira${(index % 2) + 1}.jpg`, // Usar imagens padrão já que não temos campo imagemThumb
-    video: video.urlArquivo || video.urlExterno || '',
+    imagem: corrigirCaminhoImagem(video.urlCapa) || `/images/agrovia-inspira${(index % 2) + 1}.jpg`, // Usar capa do banco ou fallback
+    video: corrigirCaminhoVideo(video.urlArquivo) || video.urlExterno || '',
     titulo: video.nomeVideo,
     texto: video.descricao || "Depoimento inspirador sobre agricultura sustentável.",
     produtor: video.nomeAutor || "Produtor Rural",

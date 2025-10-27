@@ -33,7 +33,7 @@ Crie um arquivo `.env.local` na raiz do projeto com as seguintes variáveis:
 ```env
 # URL da API Externa
 # IMPORTANTE: Ao usar ngrok, certifique-se de usar apenas UMA barra antes de /api
-NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
+NEXT_PUBLIC_API_URL=https://93c44447ef94.ngrok-free.app/api
 
 # Database URL (Prisma)
 DATABASE_URL=

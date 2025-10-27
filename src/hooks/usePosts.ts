@@ -24,7 +24,7 @@ export interface Categoria {
   nomeCategoria: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://5acfae47b7cd.ngrok-free.app/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://93c44447ef94.ngrok-free.app/api';
 
 export const usePosts = (categoriaNome?: string) => {
   const [posts, setPosts] = useState<Post[]>([]);

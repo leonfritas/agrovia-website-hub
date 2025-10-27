@@ -56,11 +56,11 @@ npm install
 npm start
 ```
 
-O servidor estará rodando em `https://5acfae47b7cd.ngrok-free.app/`
+O servidor estará rodando em `https://93c44447ef94.ngrok-free.app/`
 
 #### Pasta de uploads:
 As imagens são salvas em: `api/uploads/`
-Acessíveis via: `https://5acfae47b7cd.ngrok-free.app//uploads/[nome-do-arquivo]`
+Acessíveis via: `https://93c44447ef94.ngrok-free.app//uploads/[nome-do-arquivo]`
 
 ### 2. Frontend (Website)
 
@@ -74,7 +74,7 @@ npm run dev
 O site estará rodando em `http://localhost:3000`
 
 #### Configuração:
-Certifique-se de que a variável `NEXT_PUBLIC_API_URL` está configurada (padrão: `https://5acfae47b7cd.ngrok-free.app//api`)
+Certifique-se de que a variável `NEXT_PUBLIC_API_URL` está configurada (padrão: `https://93c44447ef94.ngrok-free.app//api`)
 
 ### 3. Painel Administrativo
 
@@ -194,17 +194,17 @@ painelAdmin/painel-admin/
 
 ### Buscar posts por categoria (API)
 ```bash
-GET https://5acfae47b7cd.ngrok-free.app//api/posts/secao/Agrovia%20Ensina
+GET https://93c44447ef94.ngrok-free.app//api/posts/secao/Agrovia%20Ensina
 ```
 
 ### Acessar imagem
 ```bash
-GET https://5acfae47b7cd.ngrok-free.app//uploads/[nome-do-arquivo]
+GET https://93c44447ef94.ngrok-free.app//uploads/[nome-do-arquivo]
 ```
 
 ### Criar post com imagens (cURL)
 ```bash
-curl -X POST https://5acfae47b7cd.ngrok-free.app//api/posts \
+curl -X POST https://93c44447ef94.ngrok-free.app//api/posts \
   -H "Authorization: Bearer [seu-token]" \
   -F "nomePost=Título do Post" \
   -F "descricao=Descrição breve" \

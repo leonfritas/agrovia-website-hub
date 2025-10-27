@@ -35,7 +35,7 @@ DATABASE_URL="postgresql://usuario:senha@localhost:5432/agrovia_db"
 # ============================================
 # API EXTERNA (Sua API com Ngrok)
 # ============================================
-NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
+NEXT_PUBLIC_API_URL=https://93c44447ef94.ngrok-free.app/api
 
 # ============================================
 # SITE URL (para emails de reset)

@@ -94,12 +94,12 @@ fetch(url, {
 ### URLs Corrigidas
 Antes:
 ```
-https://5acfae47b7cd.ngrok-free.app//api/posts
+https://93c44447ef94.ngrok-free.app//api/posts
 ```
 
 Depois:
 ```
-https://5acfae47b7cd.ngrok-free.app/api/posts
+https://93c44447ef94.ngrok-free.app/api/posts
 ```
 
 ### Header Crítico
@@ -117,7 +117,7 @@ O header `ngrok-skip-browser-warning: true` é **essencial** porque:
 
 2. Atualize a URL no `.env.local`:
    ```env
-   NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
+   NEXT_PUBLIC_API_URL=https://93c44447ef94.ngrok-free.app/api
    ```
 
 3. Reinicie o servidor Next.js:
@@ -151,9 +151,9 @@ const imageUrl = `${API_BASE_URL.replace('/api', '')}/${imagePath}`;
 ```
 
 **Exemplo:**
-- API URL: `https://5acfae47b7cd.ngrok-free.app/api`
+- API URL: `https://93c44447ef94.ngrok-free.app/api`
 - Imagem DB: `/uploads/imagem.png`
-- Resultado: `https://5acfae47b7cd.ngrok-free.app/uploads/imagem.png` ✅
+- Resultado: `https://93c44447ef94.ngrok-free.app/uploads/imagem.png` ✅
 
 ## 🔄 Arquivos que Precisam de Reinicialização
 

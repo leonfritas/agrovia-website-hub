@@ -37,7 +37,7 @@ NEXTAUTH_URL=http://localhost:3000
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/banco"
 
 # Sua API Externa
-NEXT_PUBLIC_API_URL=https://5acfae47b7cd.ngrok-free.app/api
+NEXT_PUBLIC_API_URL=https://93c44447ef94.ngrok-free.app/api
 
 # Para emails de reset de senha
 SITE_URL=http://localhost:3000
