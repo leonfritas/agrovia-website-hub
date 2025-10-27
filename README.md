@@ -20,6 +20,7 @@ Website institucional da Agrovia construído com Next.js, React, TypeScript e Ta
 
 ## ⚙️ Configuração
 
+<<<<<<< HEAD
 ### 1. Instalar dependências
 
 ```bash
@@ -81,6 +82,9 @@ Quando usar ngrok para expor sua API externa, siga estas orientações:
    - `src/hooks/usePosts.ts` - Hook para buscar posts e categorias
    - `src/app/post/[id]/page.tsx` - Página individual de post
    - `src/components/AgroviaAtual/index.tsx` - Seção Agrovia Atual com comentários
+=======
+O site está disponível em `https://agrovia-website-hub.vercel.app/`
+>>>>>>> d5b04fc891083ee29ce7db2c7c4900a2117928ae
 
 ## 📁 Estrutura do Projeto
 
@@ -106,17 +110,6 @@ agrovia-website/
 │   └── videos/
 └── prisma/              # Schema do banco de dados
 ```
-
-## 🐛 Solução de Problemas
-
-### Erro: "Unexpected token '<', "<!DOCTYPE "... is not valid JSON"
-
-Este erro ocorre quando a API retorna HTML ao invés de JSON. **Soluções**:
-
-1. ✅ Verifique se a URL da API está correta (sem barras duplas)
-2. ✅ Certifique-se de que o header `ngrok-skip-browser-warning: true` está sendo enviado
-3. ✅ Confirme que sua API está retornando JSON válido
-4. ✅ Teste a API diretamente no navegador ou Postman
 
 ### Cache de Posts
 
@@ -149,10 +142,4 @@ npm run lint         # Executa linter
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 📞 Suporte
-
-Para dúvidas e suporte, consulte a documentação adicional:
-- [PAINEL-ADMIN-UPLOAD-GUIDE.md](PAINEL-ADMIN-UPLOAD-GUIDE.md) - Guia do painel administrativo
-- [UPLOAD-IMAGES-README.md](UPLOAD-IMAGES-README.md) - Guia de upload de imagens
 
