@@ -74,12 +74,12 @@ const menuData: Menu[] = [
     title: "Parceiros",
     path: "/",
     newTab: false,
-  },
-  {
-    id: 5,
-    title: "Redes Sociais",
-    path: "/redes-sociais",
-    newTab: false,
   }
+  // {
+  //   id: 5,
+  //   title: "Redes Sociais",
+  //   path: "/redes-sociais",
+  //   newTab: false,
+  // }
 ];
 export default menuData;
