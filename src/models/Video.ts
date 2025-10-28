@@ -1,6 +1,5 @@
 // Classe Video adaptada para Next.js/TypeScript
 // Baseada na sua classe Video original
-require('dotenv').config({ path: '.env.local' });
 
 export interface VideoData {
   idVideo?: number;
