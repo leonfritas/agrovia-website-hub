@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-const colors = require('tailwindcss/colors')
+import colors from "tailwindcss/colors";
 
 const config: Config = {
   darkMode: "class",
@@ -12,10 +12,14 @@ const config: Config = {
     extend: {
       colors: {
         ...colors,
-        // primary: "#1A202C",
+        emerald: colors.emerald,
+      },
+      fontFamily: {
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
   plugins: [require("tailgrids/plugin")],
 };
+
 export default config;

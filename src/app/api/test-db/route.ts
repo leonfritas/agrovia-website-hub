@@ -36,7 +36,7 @@ export async function GET() {
       }
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Erro no teste de conexão:', error);
     
     return NextResponse.json({

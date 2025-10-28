@@ -8,44 +8,51 @@ body {
   font-family: "Inter", sans-serif;
 }
 
+/* Sticky menu */
 .sticky-menu .navbar-logo {
   @apply py-2;
 }
 
 .sticky-menu #navbarToggler span {
-  @apply bg-dark dark:bg-white;
+  @apply bg-gray-900 dark:bg-white;
 }
 
 .sticky-menu #navbarCollapse li > a {
-  @apply text-dark hover:text-emerald-900 hover:opacity-100 dark:text-white;
+  @apply text-gray-900 hover:text-emerald-900 hover:opacity-100 dark:text-white;
 }
+
 #navbarCollapse li .ud-menu-scroll.active {
   @apply opacity-70;
 }
+
 .sticky-menu #navbarCollapse li .ud-menu-scroll.active {
   @apply text-emerald-900 opacity-100 dark:text-white;
 }
+
 .sticky-menu .loginBtn {
-  @apply text-dark hover:text-emerald-900 hover:opacity-100 dark:text-white;
+  @apply text-gray-900 hover:text-emerald-900 hover:opacity-100 dark:text-white;
 }
 
 .sticky-menu .signUpBtn {
-  @apply bg-emerald-900 hover:bg-dark text-white hover:text-white;
+  @apply bg-emerald-900 hover:bg-gray-900 text-white hover:text-white;
 }
 
 .navbarTogglerActive > span:nth-child(1) {
   @apply top-[7px] rotate-45 transform;
 }
+
 .navbarTogglerActive > span:nth-child(2) {
   @apply opacity-0;
 }
+
 .navbarTogglerActive > span:nth-child(3) {
   @apply top-[-8px] rotate-[135deg];
 }
 
+/* Blog details */
 .blog-details,
 .blog-details p {
-  @apply text-body-color dark:text-dark-6 text-base leading-relaxed;
+  @apply text-gray-700 dark:text-gray-300 text-base leading-relaxed;
 }
 
 .blog-details p {
@@ -53,7 +60,7 @@ body {
 }
 
 .blog-details strong {
-  @apply text-dark font-bold dark:text-white;
+  @apply text-gray-900 font-bold dark:text-white;
 }
 
 .blog-details ul {
@@ -65,37 +72,36 @@ body {
 }
 
 .blog-details h1 {
-  @apply text-dark mb-8 text-3xl font-bold dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.28];
+  @apply text-gray-900 mb-8 text-3xl font-bold dark:text-white sm:text-4xl md:text-[40px] md:leading-[1.28];
 }
 
 .blog-details h2 {
-  @apply text-dark mb-8 text-2xl font-bold dark:text-white sm:text-3xl md:text-[35px] md:leading-[1.28];
+  @apply text-gray-900 mb-8 text-2xl font-bold dark:text-white sm:text-3xl md:text-[35px] md:leading-[1.28];
 }
 
 .blog-details h3 {
-  @apply text-dark mb-6 text-2xl font-bold dark:text-white sm:text-[28px] sm:leading-[40px];
+  @apply text-gray-900 mb-6 text-2xl font-bold dark:text-white sm:text-[28px] sm:leading-[40px];
 }
 
+/* Swiper */
 .agrovia-swiper .swiper-pagination {
   left: 1.5rem !important;
   bottom: 1.5rem !important;
-  width: auto !important;      /* não ocupa a largura toda */
+  width: auto !important;
   text-align: left !important;
-  bottom: -5px !important;  /* ajusta a posição vertical */
+  bottom: -5px !important;
 }
 
-/* Bullets brancos */
 .agrovia-pagination .swiper-pagination-bullet {
   background: #ffffff !important;
   opacity: 0.45;
 }
+
 .agrovia-pagination .swiper-pagination-bullet-active {
   opacity: 1;
 }
 
-/* Mantém alinhado à esquerda e sem ocupar a largura toda */
 .agrovia-pagination {
   width: auto !important;
   text-align: left !important;
 }
-

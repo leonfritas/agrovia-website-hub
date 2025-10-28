@@ -12,10 +12,11 @@
   "dependencies": {
     "@auth/prisma-adapter": "^1.5.0",
     "@prisma/client": "^5.11.0",
-    "axios": "^1.6.2",
+    "axios": "^1.13.0",
     "bcrypt": "^5.0.1",
     "date-fns": "^3.4.0",
     "dotenv": "^17.2.3",
+    "form-data": "^4.0.4",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.544.0",
     "mssql": "^12.0.0",
@@ -37,6 +38,9 @@
     "tailgrids": "^2.2.7"
   },
   "devDependencies": {
+    "@eslint/config-array": "^0.21.1",
+    "@eslint/object-schema": "^2.1.7",
+    "@tailwindcss/postcss": "^4.1.16",
     "@types/bcrypt": "^5.0.2",
     "@types/mssql": "^9.1.8",
     "@types/node": "^20.11.27",
@@ -44,11 +48,11 @@
     "@types/prismjs": "^1.26.3",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.2",
-    "autoprefixer": "^10.0.1",
-    "eslint": "^8",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.38.0",
     "eslint-config-next": "15.1.6",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
     "typescript": "^5"
   }
 }
