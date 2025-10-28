@@ -15,10 +15,6 @@ export async function GET() {
     console.log('🔍 Buscando vídeos da categoria "Agrovia Inspira"...');
     const videosInspira = await videoModel.findByCategoriaName('Agrovia Inspira', { limit: 5 });
     
-    // Estatísticas
-    console.log('📊 Calculando estatísticas...');
-    const stats = await videoModel.getStats();
-    
     return NextResponse.json({
       success: true,
       message: 'Conexão com banco funcionando!',
@@ -31,7 +27,6 @@ export async function GET() {
           quantidade: videosInspira.length,
           videos: videosInspira
         },
-        estatisticas: stats,
         configuracoes: {
           server: process.env.DB_SERVER || 'não configurado',
           database: process.env.DB_DATABASE || 'não configurado',
@@ -58,3 +53,4 @@ export async function GET() {
     });
   }
 }
+

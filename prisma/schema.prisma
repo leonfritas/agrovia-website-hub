@@ -73,6 +73,7 @@ model Video {
   nomeVideo      String   @map("nomeVideo")
   urlArquivo     String?  @map("urlArquivo")
   urlExterno     String?  @map("urlExterno")
+  urlCapa        String?  @map("urlCapa")
   descricao      String   @map("descricao")
   idUsuario      Int      @map("idUsuario")
   dataUpload     DateTime @map("dataUpload")

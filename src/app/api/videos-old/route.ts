@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prismaDB } from '@/utils/prismaDB';
+import { prisma as prismaDB } from '@/utils/prismaDB';
+import type { Video, Categoria } from '@prisma/client';
 
 // Dados mockados como fallback
 const mockVideos = {
@@ -96,9 +97,8 @@ export async function GET(request: NextRequest) {
           dataUpload: 'desc'
         }
       });
-      
       if (videosDB.length > 0) {
-        videosRelevantes = videosDB.map(video => ({
+        videosRelevantes = videosDB.map((video: Video & { categoria: Categoria }) => ({
           idVideo: video.idVideo,
           nomeVideo: video.nomeVideo,
           descricao: video.descricao,

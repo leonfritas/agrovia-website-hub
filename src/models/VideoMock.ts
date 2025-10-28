@@ -202,3 +202,4 @@ class VideoMock {
 }
 
 export default VideoMock;
+
