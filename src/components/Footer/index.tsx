@@ -87,7 +87,7 @@ export default function Footer() {
           <p>
             Design feito por:{" "}
             <Link href="https://moa.example" className="underline hover:no-underline">
-              <Image src={"/images/logo/logo-maloca.png"} alt="MoA" width={40} height={10} className="inline h-auto w-10 object-contain" />
+              <Image src={"/images/logo/logo-maloca-white.png"} alt="MoA" width={40} height={10} className="inline h-auto w-10 object-contain" />
             </Link>
           </p>
         </div>

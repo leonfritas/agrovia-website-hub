@@ -9,16 +9,7 @@ export default function GuiaPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* Hero Section */}
-      <section className="relative w-full h-[350px] flex flex-col items-center justify-center bg-green-900">
-        {/* Imagem de fundo */}
-        <div className="absolute inset-0">
-          <Image
-            src="/images/campo.jpg" // coloque uma imagem de fundo do agro
-            alt="Campo"
-            fill
-            className="object-cover opacity-40"
-          />
-        </div>
+      <section className="relative w-full h-[350px] flex flex-col items-center justify-center bg-green-900">      
 
         {/* Logo + Título */}
         <div className="relative flex flex-col items-center text-center">
@@ -47,46 +38,43 @@ export default function GuiaPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
             <Image
-              src="/images/missao.jpg"
+              src="/images/Agrovia-Guia/guia1.jpg"
               alt="Missão"
               width={400}
               height={250}
               className="rounded-lg mb-4 object-cover w-full h-48"
             />
-            <h3 className="text-xl font-bold text-green-900 mb-2">Missão</h3>
+            <h3 className="text-xl font-bold text-green-900 mb-2">Empresas e Soluções do Campo</h3>
             <p className="text-gray-600">
-              Impulsionar o agronegócio brasileiro com informação confiável,
-              acessível e moderna.
+              Conheça quem impulsiona o agro com inovação e responsabilidade.
             </p>
           </div>
 
           <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
             <Image
-              src="/images/visao.jpg"
+              src="/images/Agrovia-Guia/guia2.jpg"
               alt="Visão"
               width={400}
               height={250}
               className="rounded-lg mb-4 object-cover w-full h-48"
             />
-            <h3 className="text-xl font-bold text-green-900 mb-2">Visão</h3>
+            <h3 className="text-xl font-bold text-green-900 mb-2">Feiras, Cursos e Eventos Rurais</h3>
             <p className="text-gray-600">
-              Ser a principal plataforma digital que conecta e apoia o
-              desenvolvimento do agro no Brasil.
+              Fique por dentro das oportunidades que conectam o campo e o conhecimento.
             </p>
           </div>
 
           <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
             <Image
-              src="/images/valores.jpg"
+              src="/images/Agrovia-Guia/guia3.jpg"
               alt="Valores"
               width={400}
               height={250}
               className="rounded-lg mb-4 object-cover w-full h-48"
             />
-            <h3 className="text-xl font-bold text-green-900 mb-2">Valores</h3>
+            <h3 className="text-xl font-bold text-green-900 mb-2">Especialistas e Parcerias Locais</h3>
             <p className="text-gray-600">
-              Compromisso com a sustentabilidade, inovação, ética e proximidade
-              com o produtor.
+              Conte com quem entende o campo — parcerias que fortalecem sua produção.
             </p>
           </div>
         </div>

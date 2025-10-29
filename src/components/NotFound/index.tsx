@@ -57,17 +57,16 @@ const NotFound = () => {
                 </svg>
               </div>
               <h3 className="mb-5 text-2xl font-semibold text-dark dark:text-white">
-                We Can&#39;t Seem to Find The Page You&#39;re Looking For.
+               Página não encontrada
               </h3>
               <p className="mb-8 text-base text-body-color dark:text-dark-6">
-                Oops! The page you are looking for does not exist. It might have
-                been moved or deleted.
+                Oops! A página que você está procurando não existe.
               </p>
               <Link
                 href="/"
                 className="rounded-md bg-dark px-7 py-3 text-base font-medium text-white transition hover:bg-emerald-900 dark:bg-emerald-900 dark:hover:bg-emerald-900/80"
               >
-                Go To Home
+                Ir para Home
               </Link>
             </div>
           </div>

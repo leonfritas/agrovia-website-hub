@@ -20,7 +20,7 @@ export default function RootLayout({
 
   const pathName = usePathname();
 
-  const hideHeader = ["/sobre", "/info-page", "/guia", "/redes-sociais"];
+  const hideHeader = ["/sobre", "/info-page", "/guia", "/redes-sociais", "/servicos", "/contato"];
   const isPostPage = pathName?.startsWith('/post/');
 
   return (

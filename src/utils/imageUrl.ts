@@ -3,7 +3,36 @@
  * Funciona tanto em desenvolvimento (localhost) quanto em produção (Vercel)
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://93c44447ef94.ngrok-free.app/api';
+// Detectar automaticamente a URL da API
+const getApiBaseUrl = () => {
+  let baseUrl = '';
+  
+  // Se definido no .env.local, usar esse valor
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    // Garantir que seja HTTP em desenvolvimento
+    if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
+      baseUrl = baseUrl.replace('https://', 'http://');
+    }
+  } else {
+    // Detectar automaticamente se estamos em desenvolvimento
+    if (typeof window !== 'undefined') {
+      const currentPort = window.location.port;
+      if (currentPort === '3000' || currentPort === '3001' || currentPort === '3002') {
+        baseUrl = 'http://localhost:4000';
+      } else {
+        baseUrl = 'http://localhost:4000';
+      }
+    } else {
+      baseUrl = 'http://localhost:4000';
+    }
+  }
+  
+  // Remover /api do final se estiver presente para evitar duplicação
+  return baseUrl.replace(/\/api$/, '');
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Constrói URL de imagem da API externa
@@ -20,10 +49,7 @@ export function getImageUrl(imagePath?: string): string {
     ? imagePath.substring(1) 
     : imagePath;
 
-  // Remove /api da URL base para construir URL da imagem
-  const baseUrl = API_BASE_URL.replace('/api', '');
-  
-  return `${baseUrl}/${cleanPath}`;
+  return `${API_BASE_URL}/${cleanPath}`;
 }
 
 /**
@@ -41,9 +67,7 @@ export function getImageUrlWithFallback(imagePath?: string, fallback: string = '
     ? imagePath.substring(1) 
     : imagePath;
 
-  const baseUrl = API_BASE_URL.replace('/api', '');
-  
-  return `${baseUrl}/${cleanPath}`;
+  return `${API_BASE_URL}/${cleanPath}`;
 }
 
 /**

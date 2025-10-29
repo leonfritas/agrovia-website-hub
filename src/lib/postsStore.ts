@@ -21,7 +21,39 @@ interface CacheEntry {
   timestamp: number;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+// Detectar automaticamente a URL da API
+const getApiBaseUrl = () => {
+  let baseUrl = '';
+  
+  // Se definido no .env.local, usar esse valor
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    // Garantir que seja HTTP em desenvolvimento
+    if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
+      baseUrl = baseUrl.replace('https://', 'http://');
+    }
+  } else {
+    // Detectar automaticamente se estamos em desenvolvimento
+    if (typeof window !== 'undefined') {
+      // No cliente, tentar detectar a porta baseada na URL atual
+      const currentPort = window.location.port;
+      if (currentPort === '3000' || currentPort === '3001' || currentPort === '3002') {
+        // Se o website está na porta 3000/3001/3002, a API provavelmente está na 4000
+        baseUrl = 'http://localhost:4000';
+      } else {
+        baseUrl = 'http://localhost:4000';
+      }
+    } else {
+      // Fallback padrão - usar porta 4000 onde a API está rodando
+      baseUrl = 'http://localhost:4000';
+    }
+  }
+  
+  // Remover /api do final se estiver presente para evitar duplicação
+  return baseUrl.replace(/\/api$/, '');
+};
+
+const API_BASE_URL = getApiBaseUrl();
 const CACHE_DURATION = 60000; // 60 segundos
 
 class PostsStore {
@@ -72,9 +104,9 @@ class PostsStore {
     // Fazer nova requisição
     console.log(`🔄 Buscando posts para: ${cacheKey}`);
     
-    let url = `${API_BASE_URL}/posts`;
+    let url = `${API_BASE_URL}/api/posts`;
     if (categoriaNome) {
-      url = `${API_BASE_URL}/posts/secao/${encodeURIComponent(categoriaNome)}`;
+      url = `${API_BASE_URL}/api/posts/secao/${encodeURIComponent(categoriaNome)}`;
     }
 
     const requestPromise = fetch(url, {

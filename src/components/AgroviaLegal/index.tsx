@@ -56,7 +56,7 @@ const AgroviaLegal = () => {
           {posts.length > 0 ? (
             posts.map((post, i) => {
               // Usar imagem de destaque ou fallback
-              const imageUrl = getValidImageUrl(post.imagemDestaque, "/images/icon.png");
+              const imageUrl = "/images/icon.png";
               
               return (
                 <AgroviaEnsinaCard 

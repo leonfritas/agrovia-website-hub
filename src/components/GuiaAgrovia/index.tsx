@@ -39,7 +39,7 @@ export default function GuiaAgrovia() {
           <div className="relative aspect-[16/11] overflow-visible rounded-2xl">
             {/* sua arte do mapa (SVG ou PNG) */}
             <Image
-              src="/images/mapa-brasil.svg" // coloque o arquivo em /public/images/
+              src="/images/brasil-map.png" // coloque o arquivo em /public/images/
               alt="Mapa do Brasil"
               fill
               className="object-contain"
@@ -47,11 +47,10 @@ export default function GuiaAgrovia() {
             />
 
             {/* Destaque do estado (ex.: Amazonas) – ajuste o polígono para casar com sua arte */}
-            <div className="pointer-events-none absolute inset-0">
+            {/* <div className="pointer-events-none absolute inset-0">
               <svg viewBox="0 0 100 100" className="h-full w-full">
                 <defs>
-                  <clipPath id="estado-destaque">
-                    {/* POLÍGONO APROXIMADO — ajuste pontos para alinhar exatamente */}
+                  <clipPath id="estado-destaque">                    
                     <polygon points="8,35 28,33 42,45 35,60 16,57 11,47" />
                   </clipPath>
                 </defs>
@@ -63,10 +62,10 @@ export default function GuiaAgrovia() {
                   opacity="0.85"
                 />
               </svg>
-            </div>
+            </div> */}
 
             {/* Pins */}
-            {PINS.map((p) => (
+            {/* {PINS.map((p) => (
               <div
                 key={p.id}
                 className="absolute -translate-x-1/2 -translate-y-1/2"
@@ -77,7 +76,7 @@ export default function GuiaAgrovia() {
                   <MapPin className="h-4 w-4 text-white" />
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
 
           {/* Card de texto (fica “fora” do mapa à esquerda em telas grandes) */}

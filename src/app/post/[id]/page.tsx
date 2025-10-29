@@ -21,7 +21,36 @@ interface Post {
   nomeUsuario: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://93c44447ef94.ngrok-free.app/api';
+// Detectar automaticamente a URL da API
+const getApiBaseUrl = () => {
+  let baseUrl = '';
+  
+  // Se definido no .env.local, usar esse valor
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    // Garantir que seja HTTP em desenvolvimento
+    if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
+      baseUrl = baseUrl.replace('https://', 'http://');
+    }
+  } else {
+    // Detectar automaticamente se estamos em desenvolvimento
+    if (typeof window !== 'undefined') {
+      const currentPort = window.location.port;
+      if (currentPort === '3000' || currentPort === '3001' || currentPort === '3002') {
+        baseUrl = 'http://localhost:4000';
+      } else {
+        baseUrl = 'http://localhost:4000';
+      }
+    } else {
+      baseUrl = 'http://localhost:4000';
+    }
+  }
+  
+  // Remover /api do final se estiver presente para evitar duplicação
+  return baseUrl.replace(/\/api$/, '');
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export default function PostPage() {
   const params = useParams();
@@ -45,7 +74,7 @@ export default function PostPage() {
       try {
         setLoading(true);
         console.log(`🔄 Buscando post ID: ${params.id}`);
-        const url = `${API_BASE_URL}/posts/${params.id}`;
+        const url = `${API_BASE_URL}/api/posts/${params.id}`;
         console.log(`📡 URL: ${url}`);
         
         const response = await fetch(url, {
@@ -184,7 +213,7 @@ export default function PostPage() {
         {post.imagemDestaque && (
           <div className="relative w-full aspect-video mb-8 rounded-2xl overflow-hidden">
             <Image
-              src={`${API_BASE_URL.replace('/api', '')}${post.imagemDestaque}`}
+              src={`${API_BASE_URL}${post.imagemDestaque}`}
               alt={post.nomePost}
               fill
               className="object-cover"
@@ -207,7 +236,7 @@ export default function PostPage() {
         {post.imagemConteudo && (
           <div className="relative w-full aspect-video my-8 rounded-2xl overflow-hidden">
             <Image
-              src={`${API_BASE_URL.replace('/api', '')}${post.imagemConteudo}`}
+              src={`${API_BASE_URL}${post.imagemConteudo}`}
               alt={`Imagem do conteúdo: ${post.nomePost}`}
               fill
               className="object-cover"

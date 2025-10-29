@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { X, Star, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { X, Star, ArrowLeft, ArrowRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
-import { useVideos } from "@/hooks/useVideos";
 
 interface Depoimento {
   id: number;
@@ -19,15 +18,14 @@ interface Depoimento {
 export default function AgroviaInspira() {
   const [isOpen, setIsOpen] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
-  const { videos, loading, error, source } = useVideos('Agrovia Inspira');
 
   const abrirVideo = (url: string) => {
     setVideoUrl(url);
     setIsOpen(true);
   };
 
-  // Dados estáticos como fallback
-  const depoimentosFallback: Depoimento[] = [
+  // Dados fixos dos depoimentos (mantendo o layout original)
+  const depoimentos: Depoimento[] = [
     {
       id: 1,
       imagem: "/images/agrovia-inspira1.jpg",
@@ -44,55 +42,31 @@ export default function AgroviaInspira() {
       texto: "Histórias de superação e agricultura sustentável.",
       produtor: "Maria Oliveira",
     },
+    {
+      id: 3,
+      imagem: "/images/agrovia-inspira1.jpg",
+      video: "/videos/agrovia-inspira1.mp4",
+      titulo: "Agricultura familiar",
+      texto: "Tradição e inovação caminhando juntas no campo.",
+      produtor: "Carlos Silva",
+    },
+    {
+      id: 4,
+      imagem: "/images/agrovia-inspira2.jpg",
+      video: "/videos/agrovia-inspira2.mp4",
+      titulo: "Sustentabilidade rural",
+      texto: "Práticas que preservam o meio ambiente e geram renda.",
+      produtor: "Ana Costa",
+    },
+    {
+      id: 5,
+      imagem: "/images/agrovia-inspira1.jpg",
+      video: "/videos/agrovia-inspira1.mp4",
+      titulo: "Tecnologia no campo",
+      texto: "Como a tecnologia está transformando a agricultura.",
+      produtor: "Roberto Lima",
+    },
   ];
-
-  // Função para corrigir caminho do vídeo
-  const corrigirCaminhoVideo = (url: string | undefined) => {
-    if (!url) return '';
-    // Se começar com ./public/, remover e adicionar /
-    if (url.startsWith('./public/')) {
-      return url.replace('./public', '');
-    }
-    // Se começar com public/, adicionar /
-    if (url.startsWith('public/')) {
-      return '/' + url;
-    }
-    // Se já começar com /, retornar como está
-    if (url.startsWith('/')) {
-      return url;
-    }
-    // Caso contrário, adicionar /
-    return '/' + url;
-  };
-
-  // Função para corrigir caminho da imagem/capa
-  const corrigirCaminhoImagem = (url: string | undefined) => {
-    if (!url) return '';
-    // Se começar com ./public/, remover e adicionar /
-    if (url.startsWith('./public/')) {
-      return url.replace('./public', '');
-    }
-    // Se começar com public/, adicionar /
-    if (url.startsWith('public/')) {
-      return '/' + url;
-    }
-    // Se já começar com /, retornar como está
-    if (url.startsWith('/')) {
-      return url;
-    }
-    // Caso contrário, adicionar /
-    return '/' + url;
-  };
-
-  // Converter vídeos do banco para formato do componente
-  const depoimentos = videos.length > 0 ? videos.map((video, index) => ({
-    id: video.idVideo,
-    imagem: corrigirCaminhoImagem(video.urlCapa) || `/images/agrovia-inspira${(index % 2) + 1}.jpg`, // Usar capa do banco ou fallback
-    video: corrigirCaminhoVideo(video.urlArquivo) || video.urlExterno || '',
-    titulo: video.nomeVideo,
-    texto: video.descricao || "Depoimento inspirador sobre agricultura sustentável.",
-    produtor: video.nomeAutor || "Produtor Rural",
-  })) : depoimentosFallback;
 
   return (
     <section id="agrovia-inspira" className="relative z-10 bg-emerald-900 py-16 lg:py-24">
@@ -102,22 +76,6 @@ export default function AgroviaInspira() {
           <span className="px-4 py-1 rounded-md bg-[#7B5B33] text-white text-sm">
             Agrovia Inspira
           </span>
-          {loading && (
-            <div className="mt-2 flex items-center gap-2 text-white/70">
-              <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="text-sm">Carregando vídeos...</span>
-            </div>
-          )}
-          {error && (
-            <div className="mt-2 text-red-300 text-sm">
-              {error} - Usando dados de exemplo
-            </div>
-          )}
-          {source === 'mock' && (
-            <div className="mt-2 text-yellow-300 text-sm">
-              ℹ️ Usando dados de demonstração
-            </div>
-          )}
         </div>
 
         {/* Carrossel */}
@@ -176,7 +134,7 @@ export default function AgroviaInspira() {
                   </div>
                   {/* Texto */}
                   <p className="text-lg italic mb-4">
-                    “{item.titulo}: {item.texto}”
+                    "{item.titulo}: {item.texto}"
                   </p>
                   <p className="text-sm">
                     <span className="font-bold">Produtor</span>

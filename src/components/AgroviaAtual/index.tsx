@@ -15,7 +15,36 @@ type Comment = {
   avatar?: string;
 };
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://93c44447ef94.ngrok-free.app/api';
+// Detectar automaticamente a URL da API
+const getApiBaseUrl = () => {
+  let baseUrl = '';
+  
+  // Se definido no .env.local, usar esse valor
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    // Garantir que seja HTTP em desenvolvimento
+    if (baseUrl.includes('localhost') || baseUrl.includes('127.0.0.1')) {
+      baseUrl = baseUrl.replace('https://', 'http://');
+    }
+  } else {
+    // Detectar automaticamente se estamos em desenvolvimento
+    if (typeof window !== 'undefined') {
+      const currentPort = window.location.port;
+      if (currentPort === '3000' || currentPort === '3001' || currentPort === '3002') {
+        baseUrl = 'http://localhost:4000';
+      } else {
+        baseUrl = 'http://localhost:4000';
+      }
+    } else {
+      baseUrl = 'http://localhost:4000';
+    }
+  }
+  
+  // Remover /api do final se estiver presente para evitar duplicação
+  return baseUrl.replace(/\/api$/, '');
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export default function AgroviaAtualComComentarios() {
   const { posts, loading, error } = usePosts("Agrovia Atual");
@@ -67,7 +96,7 @@ export default function AgroviaAtualComComentarios() {
 
   const loadCommentsCount = async (postId: number) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/comentarios/post/${postId}`, {
         headers: {
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
@@ -90,7 +119,7 @@ export default function AgroviaAtualComComentarios() {
   const loadComments = async (postId: number) => {
     try {
       setLoadingComments(true);
-      const response = await fetch(`${API_BASE_URL}/comentarios/post/${postId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/comentarios/post/${postId}`, {
         headers: {
           'Accept': 'application/json',
           'ngrok-skip-browser-warning': 'true',
@@ -145,7 +174,7 @@ export default function AgroviaAtualComComentarios() {
     try {
       setSubmitingComment(true);
 
-      const response = await fetch(`${API_BASE_URL}/comentarios`, {
+      const response = await fetch(`${API_BASE_URL}/api/comentarios`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -229,7 +258,7 @@ export default function AgroviaAtualComComentarios() {
   }
 
   return (
-    <section className="relative z-20 overflow-hidden bg-white pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+    <section id="agrovia-atual" className="relative z-20 overflow-hidden bg-white pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
       <div className="container mx-auto">
         {/* selo */}
         <div>

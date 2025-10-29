@@ -11,19 +11,19 @@ export default function SobrePage() {
       {/* Hero Section */}
       <section className="relative w-full h-[350px] flex flex-col items-center justify-center bg-green-900">
         {/* Imagem de fundo */}
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <Image
             src="/images/campo.jpg" // coloque uma imagem de fundo do agro
             alt="Campo"
             fill
             className="object-cover opacity-40"
           />
-        </div>
+        </div> */}
 
         {/* Logo + Título */}
         <div className="relative flex flex-col items-center text-center">
           <Image
-            src="/images/logo/logov.png" // sua logo
+            src="/images/logo/logov-white.png" // sua logo
             alt="Agrovia Logo"
             width={120}
             height={120}
@@ -47,7 +47,7 @@ export default function SobrePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
             <Image
-              src="/images/missao.jpg"
+              src="/images/Sobre/miss.jpg"
               alt="Missão"
               width={400}
               height={250}
@@ -62,7 +62,7 @@ export default function SobrePage() {
 
           <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
             <Image
-              src="/images/visao.jpg"
+              src="/images/Sobre/visao.jpg"
               alt="Visão"
               width={400}
               height={250}
@@ -77,7 +77,7 @@ export default function SobrePage() {
 
           <div className="bg-white shadow-md rounded-xl p-6 hover:shadow-xl transition">
             <Image
-              src="/images/valores.jpg"
+              src="/images/Sobre/valore.jpg"
               alt="Valores"
               width={400}
               height={250}
