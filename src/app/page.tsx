@@ -1,37 +1,36 @@
-import About from "@/components/About";
-import PreFooterCTA from "@/components/PreFooterCTA";
-import AgroviaInspira from "@/components/AgroviaInspira";
 import ScrollUp from "@/components/Common/ScrollUp";
 import Footer from "@/components/Footer";
-import ParceriasInstitucionais from "@/components/ParceriasInstitucionais";
-import AgroviaEnsina from "@/components/AgroviaEnsina";
-import Hero from "@/components/Hero";
+import PortalHomepage from "@/components/NewsPortal/PortalHomepage";
 import AgroviaAtual from "@/components/AgroviaAtual";
-import GuiaAgrovia from "@/components/GuiaAgrovia";
+import AgroviaEnsina from "@/components/AgroviaEnsina";
+import AgroviaLegal from "@/components/AgroviaLegal";
+import AgroviaInspira from "@/components/AgroviaInspira";
 import AgroviaConversa from "@/components/AgroviaConversa";
 import { Metadata } from "next";
-import AgroviaLegal from "@/components/AgroviaLegal";
 
 export const metadata: Metadata = {
-  title: "A Agrovia é a plataforma que conecta produtores, especialistas e empresas do agronegócio. Notícias, artigos, entrevistas e conteúdos exclusivos para impulsionar o futuro do setor agro no Brasil.",
-  description: "",
+  title: "Agrovia - Portal de Notícias do Agronegócio | Notícias, Artigos e Entrevistas",
+  description: "Portal de notícias do agronegócio brasileiro. Fique por dentro das últimas notícias, tendências, entrevistas e análises do setor agrícola.",
 };
 
 export default function Home() {
-
   return (
     <main>
       <ScrollUp />
-      <Hero />
-      <About />
+      {/* Portal de Notícias - Layout Principal com todas as categorias */}
+      <PortalHomepage />
+      
+      {/* Seções completas das categorias (para scroll/anchor links) */}
+      <div id="agrovia-atual">
+        <AgroviaAtual />
+      </div>
       <AgroviaEnsina />
-      <AgroviaLegal />      
-      <AgroviaInspira />
-      <AgroviaAtual />
+      <AgroviaLegal />
+      
+      {/* Seções de Vídeos */}
       <AgroviaConversa />
-      <ParceriasInstitucionais />
-      <GuiaAgrovia />
-      <PreFooterCTA />
+      <AgroviaInspira />
+      
       <Footer />
     </main>
   );

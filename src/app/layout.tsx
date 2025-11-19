@@ -21,7 +21,6 @@ export default function RootLayout({
   const pathName = usePathname();
 
   const hideHeader = ["/sobre", "/info-page", "/guia", "/redes-sociais", "/servicos", "/contato"];
-  const isPostPage = pathName?.startsWith('/post/');
 
   return (
     <html suppressHydrationWarning className="!scroll-smooth" lang="en">
@@ -29,7 +28,7 @@ export default function RootLayout({
         <Providers>
           <div className="isolate">
             <SaveScrollPosition />
-            {!hideHeader.includes(pathName) && !isPostPage && <Header />}
+            {!hideHeader.includes(pathName) && <Header />}
 
             {children}
 

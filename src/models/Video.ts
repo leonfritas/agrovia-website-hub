@@ -39,11 +39,11 @@ class Video {
     try {
       // Implementar busca por ID usando sua lógica de banco
       const query = `
-        SELECT v.*, c.nomeCategoria, u.nomeUsuario
-        FROM Video v
-        INNER JOIN Categoria c ON v.idCategoria = c.idCategoria
-        INNER JOIN Usuario u ON v.idUsuario = u.idUsuario
-        WHERE v.idVideo = @idVideo
+        SELECT Video.*, Categoria.nomeCategoria, Usuario.nomeUsuario
+        FROM Video 
+        INNER JOIN Categoria ON Video.idCategoria = Categoria.idCategoria
+        INNER JOIN Usuario   ON Video.idUsuario = Usuario.idUsuario
+        WHERE Video.idVideo = @idVideo
       `;
       
       const result = await this.executeQuery(query, { idVideo: id });

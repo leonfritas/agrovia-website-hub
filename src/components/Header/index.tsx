@@ -35,23 +35,21 @@ const Header = () => {
   return (
     <>
       <header
-        className={`ud-header left-0 top-0 z-40 flex w-full items-center ${
-          sticky
-            ? "shadow-nav fixed z-[999] border-b border-stroke bg-white/80 backdrop-blur-[5px]"
-            : "absolute bg-transparent"
+        className={`ud-header left-0 top-0 z-40 flex w-full items-center border-b border-gray-200 bg-white shadow-sm ${
+          sticky ? "fixed z-[999]" : "relative"
         }`}
       >
         <div className="container">
           <div className="relative -mx-4 flex items-center justify-between">
-            <div className="w-60 max-w-full px-4">
+            <div className="w-48 max-w-full px-4">
               <Link
                 href="/"
-                className={`navbar-logo block w-full ${sticky ? "py-2" : "py-5"}`}
+                className="navbar-logo block w-full py-3"
               >
                 <Image
                   src={`/images/logo/logoh.png`}
                   alt="logo"
-                  width={240}
+                  width={200}
                   height={30}
                   className="header-logo w-full"
                 />
@@ -68,24 +66,18 @@ const Header = () => {
                   className="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-emerald-900 focus:ring-2 lg:hidden"
                 >
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
+                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 bg-gray-700 ${
                       navbarOpen ? "top-[7px] rotate-45" : ""
-                    } ${pathUrl !== "/" && "!bg-dark"} ${
-                      pathUrl === "/" && sticky ? "bg-dark" : "bg-white"
                     }`}
                   />
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
+                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 bg-gray-700 ${
                       navbarOpen ? "opacity-0" : ""
-                    } ${pathUrl !== "/" && "!bg-dark"} ${
-                      pathUrl === "/" && sticky ? "bg-dark" : "bg-white"
                     }`}
                   />
                   <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 ${
+                    className={`relative my-1.5 block h-0.5 w-[30px] transition-all duration-300 bg-gray-700 ${
                       navbarOpen ? "top-[-8px] -rotate-45" : ""
-                    } ${pathUrl !== "/" && "!bg-dark"} ${
-                      pathUrl === "/" && sticky ? "bg-dark" : "bg-white"
                     }`}
                   />
                 </button>
@@ -104,43 +96,23 @@ const Header = () => {
                       menuItem.path ? (
                         // ------ ITEM COM LINK ------
                         <li key={index} className="group relative">
-                          {pathUrl !== "/" ? (
-                            <Link
-                              onClick={navbarToggleHandler}
-                              scroll={false}
-                              href={menuItem.path}
-                              className={`ud-menu-scroll flex py-2 text-base text-dark group-hover:text-emerald-900 lg:inline-flex lg:px-0 lg:py-6 ${
-                                pathUrl === menuItem?.path && "text-emerald-900"
-                              }`}
-                            >
-                              {menuItem.title}
-                            </Link>
-                          ) : (
-                            // MOBILE: texto escuro | DESKTOP: alterna por sticky
-                            <Link
-                              onClick={navbarToggleHandler}
-                              scroll={false}
-                              href={menuItem.path}
-                              className={`ud-menu-scroll flex py-2 text-base lg:inline-flex lg:px-0 lg:py-6 text-dark ${
-                                sticky
-                                  ? "lg:text-dark group-hover:text-emerald-900"
-                                  : "lg:text-white"
-                              } ${pathUrl === menuItem?.path && sticky && "!text-emerald-900"}`}
-                            >
-                              {menuItem.title}
-                            </Link>
-                          )}
+                          <Link
+                            onClick={navbarToggleHandler}
+                            scroll={false}
+                            href={menuItem.path}
+                            className={`ud-menu-scroll flex py-2 text-sm font-medium text-gray-700 group-hover:text-emerald-600 lg:inline-flex lg:px-0 lg:py-4 ${
+                              pathUrl === menuItem?.path && "text-emerald-600 border-b-2 border-emerald-600"
+                            }`}
+                          >
+                            {menuItem.title}
+                          </Link>
                         </li>
                       ) : (
                         // ------ ITEM PAI (SEM PATH) ------
                         <li className="submenu-item group relative" key={index}>
                           <button
                             onClick={() => handleSubmenu(index)}
-                            className={`ud-menu-scroll flex items-center justify-between py-2 text-base text-dark lg:inline-flex lg:px-0 lg:py-6 ${
-                              sticky
-                                ? "lg:text-dark group-hover:text-emerald-900"
-                                : "lg:text-white"
-                            }`}
+                            className="ud-menu-scroll flex items-center justify-between py-2 text-sm font-medium text-gray-700 group-hover:text-emerald-600 lg:inline-flex lg:px-0 lg:py-4"
                           >
                             {menuItem.title}
                             <span className="pl-1">
@@ -200,9 +172,7 @@ const Header = () => {
             <div className="hidden items-center justify-end pr-16 sm:flex lg:pr-0">         
               <Link
                 href="https://wa.me/5592991554925?text=Ol%C3%A1!%20Gostaria%20de%20receber%20mais%20informa%C3%A7%C3%B5es%20sobre%20seus%20servi%C3%A7os."
-                className={`rounded-full px-6 py-3 text-base font-medium text-white duration-300 ease-in-out ${
-                  sticky ? "bg-emerald-900 hover:bg-emerald-900/90" : "bg-white/10 hover:bg-white/20"
-                }`}
+                className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-emerald-700"
               >
                 Contacte-nos
               </Link>
