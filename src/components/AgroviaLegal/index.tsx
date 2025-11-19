@@ -40,7 +40,7 @@ const AgroviaLegal = () => {
           Agrovia Legal
         </span>
 
-        {/* Título */}
+        {/* Título
         <h2 className="mb-10 lg:mb-24 max-w-3xl text-2xl font-bold leading-snug text-dark sm:text-3xl lg:text-4xl">
           
           Seu direito no campo, explicado de forma clara.
@@ -49,7 +49,7 @@ const AgroviaLegal = () => {
           <span className="block">
             Dúvidasjurídicas traduzidas por quem entende do agro
           </span>
-        </h2>
+        </h2> */}
 
         {/* Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">                    

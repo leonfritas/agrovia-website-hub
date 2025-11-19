@@ -25,13 +25,13 @@ export default function GuiaAgrovia() {
         </span>
 
         {/* Título */}
-        <h2 className="mt-6 max-w-4xl text-3xl font-extrabold leading-tight text-black md:text-5xl">
+        {/* <h2 className="mt-6 max-w-4xl text-3xl font-extrabold leading-tight text-black md:text-5xl">
           Produtos, serviços e eventos confiáveis para quem vive do campo.
           <br className="hidden md:block" />
           <span className="block">
             Uma curadoria de soluções práticas com especialistas parceiros.
           </span>
-        </h2>
+        </h2> */}
 
         {/* Área do mapa + card de texto */}
         <div className="relative mx-auto mt-10 w-full max-w-5xl lg:ml-auto">

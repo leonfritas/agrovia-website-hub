@@ -134,13 +134,13 @@ export default function AgroviaConversa() {
         </div>
 
         {/* título (SEM bg por trás) */}
-        <h2 className="mt-6 max-w-5xl text-3xl font-extrabold leading-tight text-white md:text-5xl">
+        {/* <h2 className="mt-6 max-w-5xl text-3xl font-extrabold leading-tight text-white md:text-5xl">
           Diálogos que aproximam o saber da prática.
           <br className="hidden md:block" />
           <span className="block">
             Entrevistas com quem vive, ensina e transforma o agro.
           </span>
-        </h2>
+        </h2> */}
 
         {/* WRAPPER DO SLIDER (usa ref para ancorar o BG) */}
         <div ref={bandRef} className="relative mt-10 rounded-2xl overflow-hidden">

@@ -268,13 +268,13 @@ export default function AgroviaAtualComComentarios() {
         </div>
 
         {/* título grande */}
-        <h2 className="mt-20 max-w-5xl text-3xl font-extrabold leading-tight text-black md:text-5xl">
+        {/* <h2 className="mt-20 max-w-5xl text-3xl font-extrabold leading-tight text-black md:text-5xl">
           O que está acontecendo no agro, com linguagem simples.
           <br className="hidden md:block" />
           <span className="block">
             Notícias diárias, tendências e alertas que impactam o produtor rural.
           </span>
-        </h2>
+        </h2> */}
 
         {/* grid de cards */}
         <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

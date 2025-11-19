@@ -42,12 +42,12 @@ const AgroviaEnsina = () => {
         </span>
 
         {/* Título */}
-        <h2 className="mb-12 lg:mb-24 max-w-3xl text-2xl font-bold leading-snug text-dark sm:text-3xl lg:text-4xl">
+        {/* <h2 className="mb-12 lg:mb-24 max-w-3xl text-2xl font-bold leading-snug text-dark sm:text-3xl lg:text-4xl">
           Técnicas que aumentam sua produtividade com o pé no chão. <br />
           <span className="block">
             Conteúdos técnicos e aplicáveis com linguagem descomplicada.
           </span>
-        </h2>
+        </h2> */}
 
         {/* Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">                    
