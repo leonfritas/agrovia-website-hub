@@ -12,7 +12,9 @@ export interface Post {
   imagemPost?: string;
   imagemDestaque?: string;
   imagemConteudo?: string;
+  imagemFooter?: string;
   linkExterno?: string;
+  conteudoFooter?: string;
   idCategoria: number;
   nomeCategoria: string;
   idUsuario: number;
