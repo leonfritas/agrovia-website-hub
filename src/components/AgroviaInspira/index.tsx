@@ -134,7 +134,7 @@ export default function AgroviaInspira() {
                   </div>
                   {/* Texto */}
                   <p className="text-lg italic mb-4">
-                    "{item.titulo}: {item.texto}"
+                    {item.titulo}: {item.texto}
                   </p>
                   <p className="text-sm">
                     <span className="font-bold">Produtor</span>
