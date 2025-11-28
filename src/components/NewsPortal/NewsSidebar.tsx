@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { TrendingUp, Clock, Tag } from "lucide-react";
+import { Clock, Tag } from "lucide-react";
+import NewsletterForm from "./NewsletterForm";
 
 interface NewsSidebarProps {
   recentPosts?: Array<{
@@ -119,27 +120,7 @@ export default function NewsSidebar({
       )}
 
       {/* Newsletter */}
-      <div className="rounded-lg bg-gradient-to-br from-emerald-600 to-emerald-700 p-6 text-white shadow-md">
-        <TrendingUp className="mb-3 h-8 w-8" />
-        <h3 className="mb-2 text-lg font-bold">Fique por dentro</h3>
-        <p className="mb-4 text-sm opacity-90">
-          Receba as principais notícias do agronegócio diretamente no seu
-          e-mail.
-        </p>
-        <form className="space-y-2">
-          <input
-            type="email"
-            placeholder="Seu e-mail"
-            className="w-full rounded-md border-0 px-4 py-2 text-sm text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white"
-          />
-          <button
-            type="submit"
-            className="w-full rounded-md bg-white px-4 py-2 text-sm font-semibold text-emerald-600 transition-colors hover:bg-gray-100"
-          >
-            Inscrever-se
-          </button>
-        </form>
-      </div>
+      <NewsletterForm />
     </aside>
   );
 }
